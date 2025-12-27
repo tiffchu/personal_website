@@ -15,3 +15,22 @@ toggle.addEventListener("click", () => {
     localStorage.setItem("theme", next);
     toggle.textContent = next === "dark" ? "☀️" : "🌙";
 });
+
+const styleToggle = document.getElementById("style-toggle");
+
+const savedStyle = localStorage.getItem("style") || "professional";
+document.documentElement.setAttribute("data-style", savedStyle);
+
+if (styleToggle) {
+    styleToggle.textContent = savedStyle === "creative" ? "🧠" : "🎨";
+
+    styleToggle.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-style");
+        const next = current === "professional" ? "creative" : "professional";
+
+        document.documentElement.setAttribute("data-style", next);
+        localStorage.setItem("style", next);
+
+        styleToggle.textContent = next === "creative" ? "🧠" : "🎨";
+    });
+}
