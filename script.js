@@ -21,14 +21,16 @@ const styleToggle = document.getElementById("style-toggle");
 const savedStyle = localStorage.getItem("style") || "professional";
 document.documentElement.setAttribute("data-style", savedStyle);
 
-styleToggle.textContent = savedStyle === "creative" ? "🧠" : "🎨";
+if (styleToggle) {
+    styleToggle.textContent = savedStyle === "creative" ? "🧠" : "🎨";
 
-styleToggle.addEventListener("click", () => {
-    const current = document.documentElement.getAttribute("data-style");
-    const next = current === "professional" ? "creative" : "professional";
+    styleToggle.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-style");
+        const next = current === "professional" ? "creative" : "professional";
 
-    document.documentElement.setAttribute("data-style", next);
-    localStorage.setItem("style", next);
+        document.documentElement.setAttribute("data-style", next);
+        localStorage.setItem("style", next);
 
-    styleToggle.textContent = next === "creative" ? "🧠" : "🎨";
-});
+        styleToggle.textContent = next === "creative" ? "🧠" : "🎨";
+    });
+}
