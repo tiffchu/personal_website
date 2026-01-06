@@ -1,0 +1,114 @@
+.fm-container {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Radio body */
+.radio-dashboard {
+    width: 360px;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #1f2937, #111827);
+    color: #f9fafb;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    animation: radioShake 1s infinite ease-in-out;
+}
+
+/* Shake */
+@keyframes radioShake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(0.6deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-0.6deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.radio-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.on-air {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.radio-body {
+    background: #020617;
+    border-radius: 14px;
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.radio-screen {
+    margin-bottom: 0.6rem;
+}
+
+.frequency {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+/* Equalizer */
+.equalizer {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.equalizer span {
+    width: 6px;
+    height: 24px;
+    background: #22c55e;
+    animation: bounce 1s infinite ease-in-out;
+}
+
+.equalizer span:nth-child(2) { animation-delay: 0.1s }
+.equalizer span:nth-child(3) { animation-delay: 0.2s }
+.equalizer span:nth-child(4) { animation-delay: 0.3s }
+.equalizer span:nth-child(5) { animation-delay: 0.4s }
+
+@keyframes bounce {
+    0%,100% { height: 10px }
+    50% { height: 28px }
+}
+
+/* Controls */
+.radio-controls {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.radio-controls button {
+    font-size: 1.4rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 10px;
+    background: #020617;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.radio-controls button:hover {
+    transform: translateY(-2px);
+}
+
+/* Volume */
+.volume {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+}
+
+.volume input {
+    flex: 1;
+}
