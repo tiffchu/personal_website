@@ -37,6 +37,43 @@
 
 <main>
 
+<!-- IBD Multi-Omics Project -->
+<section class="card" id="ibd-project">
+    <h2>Reproducible Framework for IBD Analysis for BC Children's Hospital</h2>
+
+    <h3>Overview</h3>
+    <p>
+        MDS Capstone project in partnership with BC Children's Hospital Research Institute. This project works on turning raw clinical, dietary, biomarker, and mycobiome data into reproducible data products: cleaned processed files, exploratory visualizations, Quarto-based statistical reports, and a Shiny dashboard for participant- and cohort-level exploration. 
+        The goal is to provide a non-technical audience of clinicians and researchers with a user-friendly interface to explore and combine IBD data sources and gain insights into IBD.
+    </p>
+
+    <h3>Tech & Approach</h3>
+    <p>
+        Started with a data cleaning and preprocessing pipeline in Python before converting to R, with renv for environment management, followed by exploratory data analysis and visualization. 
+        This project uses Quarto for the statistical reporting site, and Shiny for the interactive dashboard. The approach is modular and pipeline-driven ->
+         raw domain files are cleaned separately, standardized through shared helpers, merged into analysis-ready tables, 
+         and then reused across both the reporting site and dashboard so the same processed data powers all downstream outputs. 
+         The Makefile organizes the project into steps like cleaning, stats rendering, and app launch, so the same pipeline can be rerun end to end from raw inputs, with github pages re-rendering the stats site automatically.
+    </p>
+
+    <div class="button-group">
+        <a href="https://github.com/tiffchu/BC_Childrens_Research_Institute_IBD_demo/tree/main" class="primary" target="_blank">GitHub Repo</a>
+        <a href="https://tiffchu.github.io/BC_Childrens_Research_Institute_IBD_demo/" class="primary" target="_blank">Stats Site</a>
+    </div>
+
+    <h3>Dashboard Demo</h3>
+
+    <img
+        src="assets/videos/dashboardgif.gif"
+        alt="Dashboard preview for the IBD multi-omics project"
+        class="project-preview">
+
+    <!-- Optional embedded PDF section
+    <h3>Report</h3>
+    <iframe class="pdf-embed" src="assets/pdfs/ibd-project-report.pdf"></iframe>
+    -->
+</section>
+
 <!-- NLP App Project -->
 <section class="card">
     <h2>NLP Tool & Analysis App with the UBC Data Science Institute</h2>
@@ -75,6 +112,8 @@
 
     </div>
 </section>
+
+
 
 <!-- COGS402 Research Project -->
 <section class="card">
