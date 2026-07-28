@@ -212,6 +212,18 @@ h3 {
     border: 1px solid var(--border);
 }
 
+.project-images {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.project-images img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 /* =====================
    Hobby Images
    ===================== */
