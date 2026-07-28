@@ -67,6 +67,9 @@ header {
     background-color: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 nav {
