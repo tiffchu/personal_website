@@ -280,53 +280,28 @@ body {
     letter-spacing: 0;
 }
 
-.cursor-aura {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    background:
-        radial-gradient(
-            circle,
-            rgba(255, 123, 110, 0.18) 0%,
-            rgba(138, 214, 210, 0.13) 38%,
-            transparent 70%
-        );
-    filter: blur(6px);
-    opacity: 0;
-    pointer-events: none;
-    transform: translate3d(-50%, -50%, 0);
-    transition: opacity 0.18s ease;
-    z-index: 999;
-}
-
-.cursor-aura.is-visible {
-    opacity: 1;
-}
-
-.home-page[data-vanta-active="true"] .cursor-aura {
-    display: none;
-}
-
-[data-theme="dark"] .cursor-aura {
-    background:
-        radial-gradient(
-            circle,
-            rgba(138, 214, 210, 0.18) 0%,
-            rgba(255, 155, 140, 0.14) 38%,
-            transparent 70%
-        );
-}
-
-#liquid-ether {
+.dot-grid {
     position: fixed;
     inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background:
+        radial-gradient(circle at var(--dot-x, 50%) var(--dot-y, 50%), rgba(255, 123, 110, 0.32), transparent 18rem),
+        radial-gradient(circle at var(--dot-x, 50%) var(--dot-y, 50%), rgba(138, 214, 210, 0.24), transparent 12rem),
+        radial-gradient(circle, color-mix(in srgb, var(--accent) 58%, transparent) 1.35px, transparent 1.45px);
+    background-size: auto, auto, 24px 24px;
+    background-position: center, center, 0 0;
+    opacity: 0.72;
     width: 100vw;
     height: 100vh;
-    pointer-events: none;
-    z-index: 0;
+}
+
+[data-theme="dark"] .dot-grid {
+    background:
+        radial-gradient(circle at var(--dot-x, 50%) var(--dot-y, 50%), rgba(138, 214, 210, 0.30), transparent 18rem),
+        radial-gradient(circle at var(--dot-x, 50%) var(--dot-y, 50%), rgba(255, 155, 140, 0.22), transparent 12rem),
+        radial-gradient(circle, rgba(255, 255, 255, 0.42) 1.35px, transparent 1.45px);
+    opacity: 0.64;
 }
 
 #home-vanta-clouds {
@@ -343,7 +318,7 @@ body {
     display: block;
 }
 
-.home-page[data-vanta-active="true"] #liquid-ether {
+.home-page[data-vanta-active="true"] .dot-grid {
     display: none;
 }
 
@@ -351,7 +326,7 @@ body {
 .home-page main,
 .home-page footer {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 }
 
 .home-page::before {
@@ -359,7 +334,7 @@ body {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
     background:
         radial-gradient(circle at 15% 18%, rgba(255, 123, 110, 0.12), transparent 28%),
         radial-gradient(circle at 82% 16%, rgba(7, 84, 99, 0.10), transparent 26%),
@@ -1340,6 +1315,23 @@ section p {
             rgba(138, 214, 210, 0.22)
         ) border-box;
     box-shadow: var(--shadow-md);
+}
+
+header,
+.site-footer,
+.card,
+.social-links a {
+    backdrop-filter: blur(14px);
+}
+
+.site-footer,
+.card {
+    background-color: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
+}
+
+[data-theme="dark"] .site-footer,
+[data-theme="dark"] .card {
+    background-color: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
 }
 
 .card::before {

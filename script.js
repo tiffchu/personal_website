@@ -65,26 +65,16 @@ updateHomeVanta();
 
 const finePointer = window.matchMedia("(pointer: fine)");
 
-if (finePointer.matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const cursorAura = document.createElement("div");
-    cursorAura.className = "cursor-aura";
-    cursorAura.setAttribute("aria-hidden", "true");
-    document.body.appendChild(cursorAura);
+const dotGrid = document.createElement("div");
+dotGrid.className = "dot-grid";
+dotGrid.setAttribute("aria-hidden", "true");
+document.body.prepend(dotGrid);
 
+if (finePointer.matches) {
     window.addEventListener("pointermove", (event) => {
-        if (document.body.dataset.vantaActive === "true") {
-            cursorAura.classList.remove("is-visible");
-            return;
-        }
-
-        cursorAura.classList.add("is-visible");
-        cursorAura.style.left = `${event.clientX}px`;
-        cursorAura.style.top = `${event.clientY}px`;
+        dotGrid.style.setProperty("--dot-x", `${event.clientX}px`);
+        dotGrid.style.setProperty("--dot-y", `${event.clientY}px`);
     }, { passive: true });
-
-    window.addEventListener("pointerleave", () => {
-        cursorAura.classList.remove("is-visible");
-    });
 }
 
 if (finePointer.matches) {
