@@ -27,6 +27,23 @@ if (toggle) {
 
 const finePointer = window.matchMedia("(pointer: fine)");
 
+if (finePointer.matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const cursorAura = document.createElement("div");
+    cursorAura.className = "cursor-aura";
+    cursorAura.setAttribute("aria-hidden", "true");
+    document.body.appendChild(cursorAura);
+
+    window.addEventListener("pointermove", (event) => {
+        cursorAura.classList.add("is-visible");
+        cursorAura.style.left = `${event.clientX}px`;
+        cursorAura.style.top = `${event.clientY}px`;
+    }, { passive: true });
+
+    window.addEventListener("pointerleave", () => {
+        cursorAura.classList.remove("is-visible");
+    });
+}
+
 if (finePointer.matches) {
     document.querySelectorAll(".card").forEach((card) => {
         card.addEventListener("pointermove", (event) => {
