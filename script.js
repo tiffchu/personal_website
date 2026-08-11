@@ -22,8 +22,46 @@ if (toggle) {
         root.setAttribute("data-theme", next);
         localStorage.setItem("theme", next);
         setThemeLabel();
+        updateHomeVanta();
     });
 }
+
+let homeVantaEffect = null;
+
+function updateHomeVanta() {
+    const homeClouds = document.getElementById("home-vanta-clouds");
+
+    if (!homeClouds) {
+        return;
+    }
+
+    const shouldUseVanta = root.getAttribute("data-theme") === "light";
+    document.body.dataset.vantaActive = String(shouldUseVanta);
+
+    if (!shouldUseVanta) {
+        if (homeVantaEffect) {
+            homeVantaEffect.destroy();
+            homeVantaEffect = null;
+        }
+        return;
+    }
+
+    if (!homeVantaEffect && window.VANTA && window.VANTA.CLOUDS && window.THREE) {
+        homeVantaEffect = window.VANTA.CLOUDS({
+            el: "#home-vanta-clouds",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            skyColor: 0x8cb9ff,
+            cloudColor: 0xdbdbf0
+        });
+    }
+}
+
+window.addEventListener("load", updateHomeVanta);
+updateHomeVanta();
 
 const finePointer = window.matchMedia("(pointer: fine)");
 
@@ -34,6 +72,11 @@ if (finePointer.matches && !window.matchMedia("(prefers-reduced-motion: reduce)"
     document.body.appendChild(cursorAura);
 
     window.addEventListener("pointermove", (event) => {
+        if (document.body.dataset.vantaActive === "true") {
+            cursorAura.classList.remove("is-visible");
+            return;
+        }
+
         cursorAura.classList.add("is-visible");
         cursorAura.style.left = `${event.clientX}px`;
         cursorAura.style.top = `${event.clientY}px`;

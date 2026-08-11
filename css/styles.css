@@ -306,6 +306,10 @@ body {
     opacity: 1;
 }
 
+.home-page[data-vanta-active="true"] .cursor-aura {
+    display: none;
+}
+
 [data-theme="dark"] .cursor-aura {
     background:
         radial-gradient(
@@ -323,6 +327,24 @@ body {
     height: 100vh;
     pointer-events: none;
     z-index: 0;
+}
+
+#home-vanta-clouds {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    display: none;
+    z-index: 0;
+}
+
+.home-page[data-vanta-active="true"] #home-vanta-clouds {
+    display: block;
+}
+
+.home-page[data-vanta-active="true"] #liquid-ether {
+    display: none;
 }
 
 .home-page header,

@@ -105,6 +105,11 @@
         const time = now * 0.001;
         ctx.clearRect(0, 0, width, height);
 
+        if (document.body.dataset.vantaActive === "true") {
+            raf = requestAnimationFrame(render);
+            return;
+        }
+
         ctx.globalCompositeOperation = "source-over";
         blobs.forEach((blob) => drawBlob(blob, time));
 
