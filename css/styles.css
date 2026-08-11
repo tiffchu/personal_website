@@ -520,10 +520,10 @@ h3 {
 }
 
 .home-hero {
-    min-height: calc(100vh - 190px);
+    min-height: calc(100vh - 320px);
     display: block;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .hero-copy {
@@ -539,7 +539,7 @@ h3 {
     font-size: clamp(4rem, 11vw, 7.5rem);
     font-weight: 700;
     line-height: 0.86;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.15rem;
 }
 
 .home-hero h1::after {
@@ -548,6 +548,7 @@ h3 {
     height: 4px;
     display: block;
     margin-top: 1.6rem;
+    margin-bottom: 0.65rem;
     border-radius: 999px;
     background: var(--accent-warm);
 }
@@ -556,7 +557,7 @@ h3 {
     max-width: 680px;
     margin-bottom: 1.1rem;
     color: var(--text-primary);
-    font-size: clamp(1.55rem, 3vw, 2.35rem);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
     line-height: 1.22;
     font-weight: 500;
 }
@@ -1007,8 +1008,8 @@ section p {
    Footer
    ===================== */
 .site-footer {
-    margin-top: 6rem;
-    padding: 3rem 1.5rem 2rem;
+    margin-top: 3rem;
+    padding: 1.35rem 1.5rem 1rem;
     background-color: var(--bg-elevated);
     border-top: 1px solid var(--border);
 }
@@ -1018,13 +1019,13 @@ section p {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    gap: 1.25rem;
 }
 
 .footer-section h4 {
     font-size: 0.95rem;
     font-weight: 600;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.35rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -1040,7 +1041,7 @@ section p {
 }
 
 .footer-section ul li {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.15rem;
 }
 
 .footer-section a:hover {
@@ -1049,7 +1050,7 @@ section p {
 
 .footer-bottom {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
     font-size: 0.85rem;
     color: var(--text-secondary);
 }
