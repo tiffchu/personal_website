@@ -158,7 +158,7 @@ h3 {
 }
 
 .projects-intro {
-    max-width: 44rem;
+    max-width: 58rem;
     margin-bottom: 2.4rem;
 }
 
@@ -170,6 +170,12 @@ h3 {
     color: var(--text-secondary);
     font-size: 1.05rem;
     line-height: 1.6;
+}
+
+@media (min-width: 900px) {
+    .projects-intro > p:last-child {
+        white-space: nowrap;
+    }
 }
 
 .projects-grid {
