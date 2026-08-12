@@ -556,7 +556,8 @@ h3 {
     min-height: calc(100vh - 320px);
     display: block;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.75rem;
+    padding-top: clamp(3rem, 8vh, 5.5rem);
 }
 
 .hero-copy {
@@ -572,7 +573,7 @@ h3 {
     font-size: clamp(4rem, 11vw, 7.5rem);
     font-weight: 700;
     line-height: 0.86;
-    margin-bottom: 2.15rem;
+    margin-bottom: 3rem;
 }
 
 .home-hero h1::after {
@@ -581,14 +582,14 @@ h3 {
     height: 4px;
     display: block;
     margin-top: 1.6rem;
-    margin-bottom: 0.65rem;
+    margin-bottom: 1.35rem;
     border-radius: 999px;
     background: var(--accent-warm);
 }
 
 .hero-subtitle {
     max-width: 680px;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1.75rem;
     color: var(--text-primary);
     font-size: clamp(1.15rem, 2vw, 1.55rem);
     line-height: 1.22;
@@ -598,6 +599,7 @@ h3 {
 .hero-copy > p:not(.section-label):not(.hero-subtitle) {
     max-width: 800px;
     font-size: 1rem;
+    margin-bottom: 1.6rem;
 }
 
 .profile-tags,
@@ -622,7 +624,7 @@ h3 {
 }
 
 .social-links {
-    margin-top: 1.5rem;
+    margin-top: 2.2rem;
 }
 
 .social-links a {
