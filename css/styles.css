@@ -453,7 +453,7 @@ h3 {
 .project-detail-content h2,
 .project-report-section h2 {
     margin: 0.45rem 0 1rem;
-    font-size: clamp(1.7rem, 3vw, 2.35rem);
+    font-size: clamp(1.35rem, 2.2vw, 1.8rem);
     line-height: 1.1;
 }
 
@@ -488,6 +488,23 @@ h3 {
     border: 0;
     border-radius: 0;
     background: transparent;
+}
+
+.icu-project-page .project-detail-hero {
+    margin-bottom: 4rem;
+}
+
+.icu-project-page .project-detail-pdf-preview {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+}
+
+.icu-project-page .project-detail-content {
+    margin-bottom: 1rem;
+}
+
+.icu-project-page .project-detail-content > section {
+    margin-bottom: 0;
 }
 
 .pdf-page-scroller {

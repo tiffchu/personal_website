@@ -26,15 +26,15 @@
         <div class="project-detail-heading">
             <p class="project-card-kicker">Machine Learning Capstone</p>
             <h1 id="project-heading">Anomaly Detection in U.S. Senate Investments</h1>
-            <ul class="project-tags" aria-label="Senate investments project technologies"><li>Python</li><li>Anomaly detection</li><li>Hierarchical clustering</li><li>LSTM autoencoders</li></ul>
+            <ul class="project-tags" aria-label="Senate investments project technologies"><li>Python</li><li>Anomaly detection</li><li>Hierarchical clustering</li><li>LSTM autoencoders</li><li>Feature engineering</li><li>Financial data</li></ul>
         </div>
         <aside class="project-detail-summary" aria-label="Project summary">
-            <p>Unsupervised models for identifying unusual transaction patterns in public Senate financial disclosures.</p>
+            <p>Unsupervised models for identifying suspicious transaction patterns in public Senate trades / financial disclosures.</p>
             <p class="project-detail-partner">Financial disclosure analysis</p>
             <div class="button-group project-detail-actions">
-                <a class="primary" href="https://github.com/tiffchu/Anomaly_Detection_US_Senate" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-                <a href="https://github.com/tiffchu/Anomaly_Detection_US_Senate/blob/main/sprint4/capstone-sprint4-Main.ipynb" target="_blank" rel="noopener noreferrer">Results notebook</a>
-                <a href="https://sites.google.com/view/tiff-anomaly-detection/home" target="_blank" rel="noopener noreferrer">Project website</a>
+                <a class="primary" href="https://github.com/tiffchu/Anomaly_Detection_US_Senate" target="_blank" rel="noopener noreferrer">GitHub repo</a>
+                <a href="https://github.com/tiffchu/Anomaly_Detection_US_Senate/blob/main/sprint4/capstone-sprint4-Main.ipynb" target="_blank" rel="noopener noreferrer">Notebook</a>
+                <a href="https://sites.google.com/view/tiff-anomaly-detection/home" target="_blank" rel="noopener noreferrer">Results site</a>
             </div>
         </aside>
     </section>
@@ -47,13 +47,13 @@
     <div class="project-detail-content">
         <section>
             <p class="section-label">Overview</p>
-            <h2>Surfacing transactions that warrant closer inspection</h2>
-            <p>This project investigates unusual or statistically significant patterns in financial transactions associated with members of the U.S. Senate. The goal is to use anomaly detection to highlight outliers in public disclosures for closer investigation.</p>
+            <h2>Unsupervised ML to find suspicious trades that could indicate insider trading</h2>
+            <p>This project investigates unusual or statistically significant patterns in financial transactions associated with members of the U.S. Senate, using anomaly detection techniques to highlight outliers that may warrant closer inspection.</p>
         </section>
         <section>
             <p class="section-label">Approach</p>
             <h2>From public disclosures to unsupervised models</h2>
-            <p>The pipeline extracts and cleans publicly available financial disclosure data, then engineers features that describe investor behavior and incorporate S&amp;P market data. Hierarchical clustering and LSTM autoencoders identify unusual activity.</p>
+            <p>The core pipeline includes data extraction and cleaning from publicly available financial disclosures, feature engineering to quantify investor behavior and combine with S&P market data, and the application of unsupervised anomaly detection models hierarchical clustering and LSTM autoencoders to identify unusual activity. Results are visualized with interactive plots and documented in analysis notebooks.</p>
             <p>Interactive plots and documented notebooks make the results easier to inspect and explain.</p>
         </section>
     </div>

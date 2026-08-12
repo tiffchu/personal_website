@@ -26,15 +26,15 @@
         <div class="project-detail-heading">
             <p class="project-card-kicker">Data Science Internship</p>
             <h1 id="project-heading">NLP Tool &amp; Analysis App</h1>
-            <ul class="project-tags" aria-label="NLP project technologies"><li>Python</li><li>Streamlit</li><li>BERTopic</li><li>Transformers</li></ul>
+            <ul class="project-tags" aria-label="NLP project technologies"><li>Python</li><li>Streamlit</li><li>BERTopic sentiment analysis</li><li>Transformers</li><li>HuggingFace BART</li></ul>
         </div>
         <aside class="project-detail-summary" aria-label="Project summary">
             <p>An interactive Streamlit workspace for cleaning, exploring, and modelling text datasets without a command line.</p>
             <p class="project-detail-partner">UBC Data Science Institute</p>
             <div class="button-group project-detail-actions">
-                <a class="primary" href="https://nlp-tool.streamlit.app/" target="_blank" rel="noopener noreferrer">Open live demo</a>
-                <a href="https://github.com/tiffchu/NLP_app" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-                <a href="../assets/pdfs/dssg.pdf" target="_blank" rel="noopener noreferrer">Final report</a>
+                <a class="primary" href="https://nlp-tool.streamlit.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
+                <a href="https://github.com/tiffchu/NLP_app" target="_blank" rel="noopener noreferrer">GitHub repo</a>
+                <a href="../assets/pdfs/nlp.pdf" target="_blank" rel="noopener noreferrer">Final report</a>
             </div>
         </aside>
     </section>
@@ -47,17 +47,21 @@
     <div class="project-detail-content">
         <section>
             <p class="section-label">Overview</p>
-            <h2>Practical text analysis without a command line</h2>
-            <p>This Streamlit application supports common text-preprocessing and analysis tasks, including tokenization, lemmatization, part-of-speech tagging, named entity recognition, sentiment analysis, and time-series analysis.</p>
-            <p>The interface makes it easier for non-technical users to clean text, explore it through EDA, run mood detection with a zero-shot BART model, and build BERTopic models from their own uploaded dataset.</p>
+            <h2>Text analysis for non-technical users</h2>
+            <p>An interactive Natural Language Processing application built with Streamlit to support text preprocessing and analysis tasks such as tokenization, lemmatization, part-of-speech tagging, named entity recognition, sentiment analysis, and time-series analysis. Which later is used in mood detection (Zero-Shot with BART model from Hugging Face), BERTopic modelling, and text cleaning and EDA of text data. Project was part of an internship with the UBC Data Science Institute.</p>
         </section>
         <section>
             <p class="section-label">Approach</p>
             <h2>A lightweight analysis workflow in the browser</h2>
-            <p>The app was developed in Python with Streamlit for the interface. The underlying workflow uses tools including Facebook Prophet, spaCy, BERTopic, NLTK, and Hugging Face Transformers to perform each linguistic task and visualize results with minimal setup.</p>
-            <p>The project was completed as part of an internship with the UBC Data Science Institute.</p>
+            <p>Developed in Python using Streamlit for the user interface, the app leverages Facebook Prophet, SpaCy, BERTopic, nltk, transformers, etc. for linguistic tasks. The pipeline performs the above tasks efficiently and visualizes results directly in the browser with minimal setup. A text dataset must be uploaded to see results.</p>
         </section>
     </div>
+
+    <section class="project-report-section" aria-labelledby="nlp-report-heading">
+        <p class="section-label">Final report</p>
+        <h2 id="nlp-report-heading">Read the full analysis</h2>
+        <iframe class="pdf-embed" src="../assets/pdfs/nlp.pdf" title="NLP tool final report"></iframe>
+    </section>
 </main>
 
 <footer>&copy; 2025 With love, Tiffany :D</footer>
