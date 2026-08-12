@@ -307,6 +307,10 @@ body {
     opacity: 0.64;
 }
 
+[data-theme="light"] .home-page .dot-grid {
+    display: none;
+}
+
 #home-vanta-clouds {
     position: fixed;
     inset: 0;
