@@ -102,6 +102,60 @@ document.querySelectorAll(".nav-links").forEach((navLinks) => {
     setPill(activeLink);
 });
 
+const projectSummaries = Array.from(document.querySelectorAll(".project-summary"));
+
+function setProjectSummaryHeight(summary, expanded) {
+    const fullHeight = summary.scrollHeight;
+    const collapsedHeight = Math.ceil(fullHeight / 3);
+
+    summary.style.setProperty("--summary-collapsed-height", `${collapsedHeight}px`);
+    summary.style.maxHeight = expanded ? `${fullHeight}px` : `${collapsedHeight}px`;
+}
+
+projectSummaries.forEach((summary) => {
+    const toggleButton = document.querySelector(
+        `.project-summary-toggle[aria-controls="${summary.id}"]`
+    );
+
+    if (!toggleButton) {
+        return;
+    }
+
+    const projectCard = summary.closest(".project-card");
+
+    projectCard?.classList.add("is-collapsible");
+    setProjectSummaryHeight(summary, false);
+
+    toggleButton.addEventListener("click", () => {
+        const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+        const nextExpanded = !isExpanded;
+
+        summary.classList.toggle("is-expanded", nextExpanded);
+        projectCard?.classList.toggle("is-expanded", nextExpanded);
+        toggleButton.setAttribute("aria-expanded", String(nextExpanded));
+        toggleButton.querySelector("span").textContent = nextExpanded ? "Read less" : "Read more";
+        setProjectSummaryHeight(summary, nextExpanded);
+    });
+});
+
+function refreshProjectSummaries() {
+    projectSummaries.forEach((summary) => {
+        const toggleButton = document.querySelector(
+            `.project-summary-toggle[aria-controls="${summary.id}"]`
+        );
+
+        if (!toggleButton) {
+            return;
+        }
+
+        const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+        setProjectSummaryHeight(summary, isExpanded);
+    });
+}
+
+window.addEventListener("load", refreshProjectSummaries);
+window.addEventListener("resize", refreshProjectSummaries);
+
 const finePointer = window.matchMedia("(pointer: fine)");
 
 const dotGrid = document.createElement("div");
@@ -124,27 +178,46 @@ function initDotGrid(wrapper, canvas) {
 
     const settings = {
         dotRadius: 1.55,
-        activeRadius: 3.45,
+        activeRadius: 0.46,
         gap: 24,
-        proximity: 150,
-        speedTrigger: 95,
-        shockRadius: 230,
-        shockStrength: 14,
-        spring: 0.085,
-        friction: 0.82
+        proximity: 120,
+        speedTrigger: 135,
+        shockRadius: 150,
+        shockStrength: 1.4,
+        swipeStrength: 0.72,
+        hoverPull: 0.085,
+        velocityInfluence: 0.00028,
+        maxPointerSpeed: 700,
+        maxDotVelocity: 0.82,
+        maxDotOffset: 5.25,
+        pointerLag: 0.16,
+        hoverDelay: 0.14,
+        hoverDecay: 0.42,
+        impulseDecay: 0.72,
+        spring: 0.026,
+        friction: 0.77
     };
     const pointer = {
         x: -10000,
         y: -10000,
+        targetX: -10000,
+        targetY: -10000,
         lastX: null,
         lastY: null,
         lastTime: 0,
+        velocityX: 0,
+        velocityY: 0,
+        targetVelocityX: 0,
+        targetVelocityY: 0,
+        presence: 0,
+        impulse: 0,
         active: false
     };
     let dots = [];
     let width = 0;
     let height = 0;
     let dpr = 1;
+    let lastRenderTime = 0;
 
     function parseColor(value, fallback) {
         const color = (value || fallback).trim();
@@ -171,20 +244,85 @@ function initDotGrid(wrapper, canvas) {
         return parseColor(fallback, "#075463");
     }
 
+    function darken(color, amount) {
+        return {
+            r: Math.max(0, Math.round(color.r * amount)),
+            g: Math.max(0, Math.round(color.g * amount)),
+            b: Math.max(0, Math.round(color.b * amount))
+        };
+    }
+
     function getPalette() {
         const styles = getComputedStyle(root);
         const isDark = root.getAttribute("data-theme") === "dark";
+        const base = parseColor(styles.getPropertyValue("--accent"), isDark ? "#8ad6d2" : "#075463");
 
         return {
-            base: parseColor(styles.getPropertyValue("--accent"), isDark ? "#ffffff" : "#075463"),
-            active: parseColor(styles.getPropertyValue("--accent-warm"), isDark ? "#ffffff" : "#ff7b6e"),
+            base,
+            active: darken(base, isDark ? 0.62 : 0.44),
             baseAlpha: isDark ? 0.34 : 0.28,
-            activeAlpha: isDark ? 0.95 : 0.92
+            activeAlpha: isDark ? 0.64 : 0.68
         };
     }
 
     function mix(start, end, amount) {
         return Math.round(start + (end - start) * amount);
+    }
+
+    function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    }
+
+    function limitVector(x, y, maxLength) {
+        const length = Math.hypot(x, y);
+
+        if (length <= maxLength || length === 0) {
+            return { x, y, length };
+        }
+
+        const scale = maxLength / length;
+        return {
+            x: x * scale,
+            y: y * scale,
+            length: maxLength
+        };
+    }
+
+    function getMaxDotOffset() {
+        const maxRadius = Math.max(settings.dotRadius, settings.activeRadius);
+
+        return Math.max(
+            0,
+            Math.min(settings.maxDotOffset, settings.gap / 2 - maxRadius - 0.5)
+        );
+    }
+
+    function constrainDotMotion(dot) {
+        const velocity = limitVector(dot.vx, dot.vy, settings.maxDotVelocity);
+
+        dot.vx = velocity.x;
+        dot.vy = velocity.y;
+
+        const maxOffset = getMaxDotOffset();
+        const offsetLength = Math.hypot(dot.xOffset, dot.yOffset);
+
+        if (offsetLength <= maxOffset || offsetLength === 0) {
+            return;
+        }
+
+        const offsetScale = maxOffset / offsetLength;
+
+        dot.xOffset *= offsetScale;
+        dot.yOffset *= offsetScale;
+
+        const normalX = dot.xOffset / maxOffset;
+        const normalY = dot.yOffset / maxOffset;
+        const outwardVelocity = dot.vx * normalX + dot.vy * normalY;
+
+        if (outwardVelocity > 0) {
+            dot.vx -= outwardVelocity * normalX;
+            dot.vy -= outwardVelocity * normalY;
+        }
     }
 
     function buildGrid() {
@@ -220,7 +358,7 @@ function initDotGrid(wrapper, canvas) {
         }
     }
 
-    function pushDots(centerX, centerY, radius, strength, velocityX, velocityY) {
+    function pullDots(centerX, centerY, radius, strength, velocityX, velocityY) {
         dots.forEach((dot) => {
             const dx = dot.cx - centerX;
             const dy = dot.cy - centerY;
@@ -231,11 +369,45 @@ function initDotGrid(wrapper, canvas) {
             }
 
             const falloff = 1 - distance / radius;
-            const force = strength * falloff * falloff;
+            const easedFalloff = falloff * falloff * falloff;
+            const force = strength * easedFalloff;
 
-            dot.vx += (dx / distance) * force + velocityX * 0.006 * falloff;
-            dot.vy += (dy / distance) * force + velocityY * 0.006 * falloff;
+            dot.vx += (-dx / distance) * force + velocityX * settings.velocityInfluence * easedFalloff;
+            dot.vy += (-dy / distance) * force + velocityY * settings.velocityInfluence * easedFalloff;
+            constrainDotMotion(dot);
         });
+    }
+
+    function updatePointer(now) {
+        const elapsed = lastRenderTime ? now - lastRenderTime : 16;
+        const dt = clamp(elapsed / 1000, 0.001, 0.05);
+        const follow = 1 - Math.exp(-dt / settings.pointerLag);
+        const velocityFollow = 1 - Math.exp(-dt / (settings.pointerLag * 1.45));
+        const presenceTarget = pointer.active ? 1 : 0;
+        const presenceTau = pointer.active ? settings.hoverDelay : settings.hoverDecay;
+        const presenceFollow = 1 - Math.exp(-dt / presenceTau);
+
+        pointer.x += (pointer.targetX - pointer.x) * follow;
+        pointer.y += (pointer.targetY - pointer.y) * follow;
+        pointer.velocityX += (pointer.targetVelocityX - pointer.velocityX) * velocityFollow;
+        pointer.velocityY += (pointer.targetVelocityY - pointer.velocityY) * velocityFollow;
+        pointer.presence += (presenceTarget - pointer.presence) * presenceFollow;
+
+        if (pointer.impulse > 0.01) {
+            pullDots(
+                pointer.x,
+                pointer.y,
+                settings.proximity,
+                pointer.impulse,
+                pointer.velocityX,
+                pointer.velocityY
+            );
+            pointer.impulse *= Math.pow(settings.impulseDecay, dt * 60);
+        } else {
+            pointer.impulse = 0;
+        }
+
+        lastRenderTime = now;
     }
 
     function handlePointerMove(event) {
@@ -245,33 +417,50 @@ function initDotGrid(wrapper, canvas) {
         const elapsed = Math.max(now - lastTime, 16);
         const lastX = pointer.lastX ?? event.clientX;
         const lastY = pointer.lastY ?? event.clientY;
-        const velocityX = ((event.clientX - lastX) / elapsed) * 1000;
-        const velocityY = ((event.clientY - lastY) / elapsed) * 1000;
-        const speed = Math.hypot(velocityX, velocityY);
+        const rawVelocityX = ((event.clientX - lastX) / elapsed) * 1000;
+        const rawVelocityY = ((event.clientY - lastY) / elapsed) * 1000;
+        const velocity = limitVector(rawVelocityX, rawVelocityY, settings.maxPointerSpeed);
+        const speed = velocity.length;
 
-        pointer.x = event.clientX - rect.left;
-        pointer.y = event.clientY - rect.top;
+        const nextX = event.clientX - rect.left;
+        const nextY = event.clientY - rect.top;
+        const shouldSnapPointer = pointer.lastX === null && pointer.presence < 0.01;
+
+        pointer.targetX = nextX;
+        pointer.targetY = nextY;
+
+        if (shouldSnapPointer) {
+            pointer.x = nextX;
+            pointer.y = nextY;
+        }
+
         pointer.lastX = event.clientX;
         pointer.lastY = event.clientY;
         pointer.lastTime = now;
+        pointer.targetVelocityX = velocity.x;
+        pointer.targetVelocityY = velocity.y;
         pointer.active = true;
 
         if (speed > settings.speedTrigger) {
-            pushDots(pointer.x, pointer.y, settings.proximity, Math.min(speed / 115, settings.shockStrength), velocityX, velocityY);
+            const strength = ((speed - settings.speedTrigger) / (settings.maxPointerSpeed - settings.speedTrigger)) * settings.swipeStrength;
+
+            pointer.impulse = Math.max(pointer.impulse, clamp(strength, 0, settings.swipeStrength));
         }
     }
 
     function handlePointerLeave() {
         pointer.active = false;
-        pointer.x = -10000;
-        pointer.y = -10000;
+        pointer.targetX = pointer.x;
+        pointer.targetY = pointer.y;
         pointer.lastX = null;
         pointer.lastY = null;
+        pointer.targetVelocityX = 0;
+        pointer.targetVelocityY = 0;
     }
 
     function handleClick(event) {
         const rect = canvas.getBoundingClientRect();
-        pushDots(
+        pullDots(
             event.clientX - rect.left,
             event.clientY - rect.top,
             settings.shockRadius,
@@ -282,19 +471,30 @@ function initDotGrid(wrapper, canvas) {
     }
 
     function drawDot(dot, palette) {
+        const currentX = dot.cx + dot.xOffset;
+        const currentY = dot.cy + dot.yOffset;
+        const dx = currentX - pointer.x;
+        const dy = currentY - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        const hover = pointer.presence > 0.01 && distance < settings.proximity
+            ? pointer.presence * (1 - distance / settings.proximity)
+            : 0;
+
+        if (hover > 0 && distance > 0.01) {
+            const pull = settings.hoverPull * hover * hover;
+
+            dot.vx += (-dx / distance) * pull;
+            dot.vy += (-dy / distance) * pull;
+        }
+
         dot.vx += -dot.xOffset * settings.spring;
         dot.vy += -dot.yOffset * settings.spring;
         dot.vx *= settings.friction;
         dot.vy *= settings.friction;
         dot.xOffset += dot.vx;
         dot.yOffset += dot.vy;
+        constrainDotMotion(dot);
 
-        const dx = dot.cx - pointer.x;
-        const dy = dot.cy - pointer.y;
-        const distance = Math.hypot(dx, dy);
-        const hover = pointer.active && distance < settings.proximity
-            ? 1 - distance / settings.proximity
-            : 0;
         const radius = settings.dotRadius + (settings.activeRadius - settings.dotRadius) * hover;
         const alpha = palette.baseAlpha + (palette.activeAlpha - palette.baseAlpha) * hover;
         const r = mix(palette.base.r, palette.active.r, hover);
@@ -308,9 +508,10 @@ function initDotGrid(wrapper, canvas) {
         ctx.fill();
     }
 
-    function render() {
+    function render(now) {
         const palette = getPalette();
 
+        updatePointer(now);
         ctx.clearRect(0, 0, width, height);
         dots.forEach((dot) => drawDot(dot, palette));
         ctx.globalAlpha = 1;
