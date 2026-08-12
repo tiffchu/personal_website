@@ -68,32 +68,232 @@ const finePointer = window.matchMedia("(pointer: fine)");
 const dotGrid = document.createElement("div");
 dotGrid.className = "dot-grid";
 dotGrid.setAttribute("aria-hidden", "true");
+
+const dotGridCanvas = document.createElement("canvas");
+dotGridCanvas.className = "dot-grid__canvas";
+dotGrid.appendChild(dotGridCanvas);
 document.body.prepend(dotGrid);
 
-if (finePointer.matches) {
-    let dotGridFrame = null;
-    let dotGridX = window.innerWidth / 2;
-    let dotGridY = window.innerHeight / 2;
+initDotGrid(dotGrid, dotGridCanvas);
 
-    const syncDotGridPointer = () => {
-        dotGrid.style.setProperty("--dot-x", `${dotGridX}px`);
-        dotGrid.style.setProperty("--dot-y", `${dotGridY}px`);
-        dotGridFrame = null;
+function initDotGrid(wrapper, canvas) {
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) {
+        return;
+    }
+
+    const settings = {
+        dotRadius: 1.55,
+        activeRadius: 3.45,
+        gap: 24,
+        proximity: 150,
+        speedTrigger: 95,
+        shockRadius: 230,
+        shockStrength: 14,
+        spring: 0.085,
+        friction: 0.82
     };
+    const pointer = {
+        x: -10000,
+        y: -10000,
+        lastX: null,
+        lastY: null,
+        lastTime: 0,
+        active: false
+    };
+    let dots = [];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
 
-    document.addEventListener("pointermove", (event) => {
-        dotGridX = event.clientX;
-        dotGridY = event.clientY;
-        dotGrid.classList.add("is-active");
+    function parseColor(value, fallback) {
+        const color = (value || fallback).trim();
+        const hex = color.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
 
-        if (dotGridFrame === null) {
-            dotGridFrame = requestAnimationFrame(syncDotGridPointer);
+        if (hex) {
+            return {
+                r: parseInt(hex[1], 16),
+                g: parseInt(hex[2], 16),
+                b: parseInt(hex[3], 16)
+            };
         }
-    });
 
-    document.addEventListener("pointerleave", () => {
-        dotGrid.classList.remove("is-active");
-    });
+        const rgb = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+
+        if (rgb) {
+            return {
+                r: Number(rgb[1]),
+                g: Number(rgb[2]),
+                b: Number(rgb[3])
+            };
+        }
+
+        return parseColor(fallback, "#075463");
+    }
+
+    function getPalette() {
+        const styles = getComputedStyle(root);
+        const isDark = root.getAttribute("data-theme") === "dark";
+
+        return {
+            base: parseColor(styles.getPropertyValue("--accent"), isDark ? "#ffffff" : "#075463"),
+            active: parseColor(styles.getPropertyValue("--accent-warm"), isDark ? "#ffffff" : "#ff7b6e"),
+            baseAlpha: isDark ? 0.34 : 0.28,
+            activeAlpha: isDark ? 0.95 : 0.92
+        };
+    }
+
+    function mix(start, end, amount) {
+        return Math.round(start + (end - start) * amount);
+    }
+
+    function buildGrid() {
+        const rect = wrapper.getBoundingClientRect();
+        width = rect.width || window.innerWidth;
+        height = rect.height || window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        canvas.width = Math.ceil(width * dpr);
+        canvas.height = Math.ceil(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const cols = Math.ceil(width / settings.gap) + 2;
+        const rows = Math.ceil(height / settings.gap) + 2;
+        const startX = (width - (cols - 1) * settings.gap) / 2;
+        const startY = (height - (rows - 1) * settings.gap) / 2;
+
+        dots = [];
+
+        for (let y = 0; y < rows; y += 1) {
+            for (let x = 0; x < cols; x += 1) {
+                dots.push({
+                    cx: startX + x * settings.gap,
+                    cy: startY + y * settings.gap,
+                    xOffset: 0,
+                    yOffset: 0,
+                    vx: 0,
+                    vy: 0
+                });
+            }
+        }
+    }
+
+    function pushDots(centerX, centerY, radius, strength, velocityX, velocityY) {
+        dots.forEach((dot) => {
+            const dx = dot.cx - centerX;
+            const dy = dot.cy - centerY;
+            const distance = Math.hypot(dx, dy);
+
+            if (distance > radius || distance === 0) {
+                return;
+            }
+
+            const falloff = 1 - distance / radius;
+            const force = strength * falloff * falloff;
+
+            dot.vx += (dx / distance) * force + velocityX * 0.006 * falloff;
+            dot.vy += (dy / distance) * force + velocityY * 0.006 * falloff;
+        });
+    }
+
+    function handlePointerMove(event) {
+        const rect = canvas.getBoundingClientRect();
+        const now = performance.now();
+        const lastTime = pointer.lastTime || now - 16;
+        const elapsed = Math.max(now - lastTime, 16);
+        const lastX = pointer.lastX ?? event.clientX;
+        const lastY = pointer.lastY ?? event.clientY;
+        const velocityX = ((event.clientX - lastX) / elapsed) * 1000;
+        const velocityY = ((event.clientY - lastY) / elapsed) * 1000;
+        const speed = Math.hypot(velocityX, velocityY);
+
+        pointer.x = event.clientX - rect.left;
+        pointer.y = event.clientY - rect.top;
+        pointer.lastX = event.clientX;
+        pointer.lastY = event.clientY;
+        pointer.lastTime = now;
+        pointer.active = true;
+
+        if (speed > settings.speedTrigger) {
+            pushDots(pointer.x, pointer.y, settings.proximity, Math.min(speed / 115, settings.shockStrength), velocityX, velocityY);
+        }
+    }
+
+    function handlePointerLeave() {
+        pointer.active = false;
+        pointer.x = -10000;
+        pointer.y = -10000;
+        pointer.lastX = null;
+        pointer.lastY = null;
+    }
+
+    function handleClick(event) {
+        const rect = canvas.getBoundingClientRect();
+        pushDots(
+            event.clientX - rect.left,
+            event.clientY - rect.top,
+            settings.shockRadius,
+            settings.shockStrength,
+            0,
+            0
+        );
+    }
+
+    function drawDot(dot, palette) {
+        dot.vx += -dot.xOffset * settings.spring;
+        dot.vy += -dot.yOffset * settings.spring;
+        dot.vx *= settings.friction;
+        dot.vy *= settings.friction;
+        dot.xOffset += dot.vx;
+        dot.yOffset += dot.vy;
+
+        const dx = dot.cx - pointer.x;
+        const dy = dot.cy - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        const hover = pointer.active && distance < settings.proximity
+            ? 1 - distance / settings.proximity
+            : 0;
+        const radius = settings.dotRadius + (settings.activeRadius - settings.dotRadius) * hover;
+        const alpha = palette.baseAlpha + (palette.activeAlpha - palette.baseAlpha) * hover;
+        const r = mix(palette.base.r, palette.active.r, hover);
+        const g = mix(palette.base.g, palette.active.g, hover);
+        const b = mix(palette.base.b, palette.active.b, hover);
+
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx.beginPath();
+        ctx.arc(dot.cx + dot.xOffset, dot.cy + dot.yOffset, radius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    function render() {
+        const palette = getPalette();
+
+        ctx.clearRect(0, 0, width, height);
+        dots.forEach((dot) => drawDot(dot, palette));
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(render);
+    }
+
+    buildGrid();
+
+    if ("ResizeObserver" in window) {
+        const observer = new ResizeObserver(buildGrid);
+        observer.observe(wrapper);
+    } else {
+        window.addEventListener("resize", buildGrid);
+    }
+
+    if (finePointer.matches) {
+        window.addEventListener("pointermove", handlePointerMove, { passive: true });
+        window.addEventListener("pointerleave", handlePointerLeave);
+        window.addEventListener("click", handleClick);
+    }
+
+    requestAnimationFrame(render);
 }
 
 document.querySelectorAll("[data-option-wheel]").forEach((wheel) => {
