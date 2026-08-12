@@ -23,21 +23,24 @@
 <main class="project-detail-page">
     <a class="back-link" href="../projects.html">Back to projects</a>
     <section class="project-detail-hero" aria-labelledby="project-heading">
-        <div>
+        <div class="project-detail-heading">
             <p class="project-card-kicker">Machine Learning Capstone</p>
             <h1 id="project-heading">Anomaly Detection in U.S. Senate Investments</h1>
-            <p class="project-detail-partner">Financial disclosure analysis</p>
             <ul class="project-tags" aria-label="Senate investments project technologies"><li>Python</li><li>Anomaly detection</li><li>Hierarchical clustering</li><li>LSTM autoencoders</li></ul>
         </div>
-        <div class="button-group project-detail-actions">
-            <a class="primary" href="https://github.com/tiffchu/Anomaly_Detection_US_Senate" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-            <a href="https://github.com/tiffchu/Anomaly_Detection_US_Senate/blob/main/sprint4/capstone-sprint4-Main.ipynb" target="_blank" rel="noopener noreferrer">Results notebook</a>
-            <a href="https://sites.google.com/view/tiff-anomaly-detection/home" target="_blank" rel="noopener noreferrer">Project website</a>
-        </div>
+        <aside class="project-detail-summary" aria-label="Project summary">
+            <p>Unsupervised models for identifying unusual transaction patterns in public Senate financial disclosures.</p>
+            <p class="project-detail-partner">Financial disclosure analysis</p>
+            <div class="button-group project-detail-actions">
+                <a class="primary" href="https://github.com/tiffchu/Anomaly_Detection_US_Senate" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+                <a href="https://github.com/tiffchu/Anomaly_Detection_US_Senate/blob/main/sprint4/capstone-sprint4-Main.ipynb" target="_blank" rel="noopener noreferrer">Results notebook</a>
+                <a href="https://sites.google.com/view/tiff-anomaly-detection/home" target="_blank" rel="noopener noreferrer">Project website</a>
+            </div>
+        </aside>
     </section>
 
-    <figure class="project-detail-media">
-        <img src="../assets/images/project-thumbnails/senate-investments.png" alt="Cover slide for the Senate investments anomaly detection project">
+    <figure class="project-detail-media project-detail-slide-deck">
+        <iframe class="pdf-embed" src="../assets/pdfs/stonks.pdf" title="Senate investments project slides"></iframe>
         <figcaption>Using anomaly detection to surface unusual U.S. Senate trading patterns.</figcaption>
     </figure>
 
@@ -55,11 +58,6 @@
         </section>
     </div>
 
-    <section class="project-report-section" aria-labelledby="slides-heading">
-        <p class="section-label">Project slides</p>
-        <h2 id="slides-heading">Methods and findings</h2>
-        <iframe class="pdf-embed" src="../assets/pdfs/stonks.pdf" title="Senate investments project slides"></iframe>
-    </section>
 </main>
 
 <footer>&copy; 2025 With love, Tiffany :D</footer>
