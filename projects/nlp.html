@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Tool &amp; Analysis App | Tiffany Chu</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <a class="brand" href="../index.html" aria-label="Tiffany Chu home"><span class="brand-mark" aria-hidden="true">TC</span><span class="brand-name">Tiffany Chu</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li><li><a class="active" href="../projects.html">Projects</a></li><li><a href="../hobbies.html">Hobbies</a></li><li><a href="../cv.html">CV</a></li><li><a href="../game.html">Game</a></li>
+        </ul>
+        <div class="nav-actions"><button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button></div>
+    </nav>
+</header>
+
+<main class="project-detail-page">
+    <a class="back-link" href="../projects.html">Back to projects</a>
+    <section class="project-detail-hero" aria-labelledby="project-heading">
+        <div>
+            <p class="project-card-kicker">Data Science Internship</p>
+            <h1 id="project-heading">NLP Tool &amp; Analysis App</h1>
+            <p class="project-detail-partner">UBC Data Science Institute</p>
+            <ul class="project-tags" aria-label="NLP project technologies"><li>Python</li><li>Streamlit</li><li>BERTopic</li><li>Transformers</li></ul>
+        </div>
+        <div class="button-group project-detail-actions">
+            <a class="primary" href="https://nlp-tool.streamlit.app/" target="_blank" rel="noopener noreferrer">Open live demo</a>
+            <a href="https://github.com/tiffchu/NLP_app" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+            <a href="../assets/pdfs/dssg.pdf" target="_blank" rel="noopener noreferrer">Final report</a>
+        </div>
+    </section>
+
+    <figure class="project-detail-media">
+        <img src="../assets/images/nlp.png" alt="Screenshot of the NLP analysis application">
+        <figcaption>A browser-based interface for exploring and analyzing uploaded text datasets.</figcaption>
+    </figure>
+
+    <div class="project-detail-content">
+        <section>
+            <p class="section-label">Overview</p>
+            <h2>Practical text analysis without a command line</h2>
+            <p>This Streamlit application supports common text-preprocessing and analysis tasks, including tokenization, lemmatization, part-of-speech tagging, named entity recognition, sentiment analysis, and time-series analysis.</p>
+            <p>The interface makes it easier for non-technical users to clean text, explore it through EDA, run mood detection with a zero-shot BART model, and build BERTopic models from their own uploaded dataset.</p>
+        </section>
+        <section>
+            <p class="section-label">Approach</p>
+            <h2>A lightweight analysis workflow in the browser</h2>
+            <p>The app was developed in Python with Streamlit for the interface. The underlying workflow uses tools including Facebook Prophet, spaCy, BERTopic, NLTK, and Hugging Face Transformers to perform each linguistic task and visualize results with minimal setup.</p>
+            <p>The project was completed as part of an internship with the UBC Data Science Institute.</p>
+        </section>
+    </div>
+</main>
+
+<footer>&copy; 2025 With love, Tiffany :D</footer>
+<script src="../script.js"></script>
+</body>
+</html>

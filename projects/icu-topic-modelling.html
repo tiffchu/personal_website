@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICU Topic Modelling | Tiffany Chu</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <a class="brand" href="../index.html" aria-label="Tiffany Chu home"><span class="brand-mark" aria-hidden="true">TC</span><span class="brand-name">Tiffany Chu</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li><li><a class="active" href="../projects.html">Projects</a></li><li><a href="../hobbies.html">Hobbies</a></li><li><a href="../cv.html">CV</a></li><li><a href="../game.html">Game</a></li>
+        </ul>
+        <div class="nav-actions"><button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button></div>
+    </nav>
+</header>
+
+<main class="project-detail-page">
+    <a class="back-link" href="../projects.html">Back to projects</a>
+    <section class="project-detail-hero" aria-labelledby="project-heading">
+        <div>
+            <p class="project-card-kicker">Lab Research</p>
+            <h1 id="project-heading">Topic Modelling of ICU Transcripts</h1>
+            <p class="project-detail-partner">UBC School of Nursing</p>
+            <ul class="project-tags" aria-label="ICU topic modelling technologies"><li>Python</li><li>Latent Dirichlet Allocation</li><li>Gensim</li><li>pyLDAvis</li></ul>
+        </div>
+        <div class="button-group project-detail-actions">
+            <a class="primary" href="https://github.com/tiffchu/COGS402-research_proj" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+            <a href="https://github.com/tiffchu/COGS402-research_proj/blob/main/TC_FinalPaper_402.pdf" target="_blank" rel="noopener noreferrer">Project paper</a>
+            <a href="https://icusurvivorphotovoice.nursing.ubc.ca/" target="_blank" rel="noopener noreferrer">Photovoice study</a>
+        </div>
+    </section>
+
+    <figure class="project-detail-media project-detail-document-preview">
+        <img src="../assets/images/project-thumbnails/icu-topic-modelling.png" alt="Cover page of the ICU topic modelling project report">
+        <figcaption>Latent Content Analysis on ICU Survivor Photoscripts: A Computational Model.</figcaption>
+    </figure>
+
+    <div class="project-detail-content">
+        <section>
+            <p class="section-label">Overview</p>
+            <h2>Finding patterns in lived ICU-survivor experiences</h2>
+            <p>This independent research project, completed with supervision and data from the UBC School of Nursing, explored computational methods for analyzing qualitative health data. It uses NLP techniques to examine intensive care unit survivor transcripts.</p>
+            <p>The work sought to identify challenges people experience after hospitalization that might contribute to an unplanned readmission. The research forms part of a qualitative study led by Dr. Fuchsia Howard.</p>
+        </section>
+        <section>
+            <p class="section-label">Approach</p>
+            <h2>Latent Dirichlet Allocation for qualitative transcripts</h2>
+            <p>The analysis included data cleaning and conversion, Latent Dirichlet Allocation modelling, and visualization to derive themes from the transcripts. The project was developed in Jupyter notebooks and paired with written analysis.</p>
+            <p>The technical stack included Gensim, spaCy, pyLDAvis, and scikit-learn. Coherence scores and perplexity metrics supported evaluation of the topic model.</p>
+        </section>
+    </div>
+
+    <section class="project-report-section" aria-labelledby="report-heading">
+        <p class="section-label">Project report</p>
+        <h2 id="report-heading">Read the full analysis</h2>
+        <iframe class="pdf-embed" src="../assets/pdfs/report.pdf" title="Topic modelling project report"></iframe>
+    </section>
+</main>
+
+<footer>&copy; 2025 With love, Tiffany :D</footer>
+<script src="../script.js"></script>
+</body>
+</html>

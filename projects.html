@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>Projects | Tiffany Chu</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
 <header>
     <nav>
         <a class="brand" href="index.html" aria-label="Tiffany Chu home">
@@ -24,7 +23,6 @@
             <li><a href="cv.html">CV</a></li>
             <li><a href="game.html">Game</a></li>
         </ul>
-
         <div class="nav-actions">
             <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
         </div>
@@ -39,282 +37,99 @@
     </section>
 
     <div class="projects-grid">
-
-<!-- IBD Multi-Omics Project -->
-<section class="card project-card" id="ibd-project">
-    <div class="project-card-header">
-        <p class="project-card-kicker">Masters Capstone</p>
-        <h2>Reproducible Framework for IBD Analysis</h2>
-        <p class="project-partner">BC Children's Hospital Research Institute</p>
-        <ul class="project-tags" aria-label="IBD project technologies">
-            <li>R &amp; Shiny</li>
-            <li>Quarto</li>
-            <li>Data pipelines</li>
-        </ul>
-    </div>
-
-    <div class="project-summary" id="summary-ibd">
-        <h3>Overview</h3>
-        <p>
-            Masters capstone project in partnership with BC Children's Hospital Research Institute. This project works on turning raw clinical, dietary, biomarker, and mycobiome data into reproducible data products: cleaned processed files, exploratory visualizations, Quarto-based statistical reports, and a Shiny dashboard for participant- and cohort-level exploration.
-            The goal is to provide a non-technical audience of clinicians and researchers with a user-friendly interface to explore and combine IBD data sources and gain insights into IBD.
-        </p>
-
-        <h3>Tech & Approach</h3>
-        <p>
-            Started with a data cleaning and preprocessing pipeline in Python before converting to R, with renv for environment management, followed by exploratory data analysis and visualization.
-            This project uses Quarto for the statistical reporting site, and Shiny for the interactive dashboard. The approach is modular and pipeline-driven ->
-             raw domain files are cleaned separately, standardized through shared helpers, merged into analysis-ready tables,
-             and then reused across both the reporting site and dashboard so the same processed data powers all downstream outputs.
-             The Makefile organizes the project into steps like cleaning, stats rendering, and app launch, so the same pipeline can be rerun end to end from raw inputs, with github pages re-rendering the stats site automatically.
-        </p>
-    </div>
-    <button class="project-summary-toggle" type="button" aria-expanded="false" aria-controls="summary-ibd">
-        <span>Read more</span>
-    </button>
-
-    <div class="button-group">
-        <a href="https://github.com/tiffchu/BC_Childrens_Research_Institute_IBD_demo/tree/main" class="primary" target="_blank">GitHub Repo</a>
-        <a href="https://tiffchu.github.io/BC_Childrens_Research_Institute_IBD_demo/" class="primary" target="_blank">Stats Site</a>
-    </div>
-
-    <div class="project-details">
-        <h3>Dashboard Demo</h3>
-        <img
-            src="assets/videos/dashboardgif.gif"
-            alt="Dashboard preview for the IBD multi-omics project"
-            class="project-preview">
-    </div>
-
-    <!-- Optional embedded PDF section
-    <h3>Report</h3>
-    <iframe class="pdf-embed" src="assets/pdfs/ibd-project-report.pdf"></iframe>
-    -->
-</section>
-
-<!-- NLP App Project -->
-<section class="card project-card">
-    <div class="project-card-header">
-        <p class="project-card-kicker">Data Science Internship</p>
-        <h2>NLP Tool &amp; Analysis App</h2>
-        <p class="project-partner">UBC Data Science Institute</p>
-        <ul class="project-tags" aria-label="NLP project technologies">
-            <li>Python</li>
-            <li>Streamlit</li>
-            <li>NLP</li>
-        </ul>
-    </div>
-
-    <!-- <div class="project-images">
-        <img src="assets/images/nlp_app_1.jpeg" alt="NLP App Screenshot">
-        <img src="assets/images/nlp_app_2.jpeg" alt="NLP App Screenshot 2">
-        <img src="assets/images/nlp_app_3.jpeg" alt="NLP App Screenshot 3">
-    </div> -->
-
-    <div class="project-summary" id="summary-nlp">
-        <h3>Overview</h3>
-        <p>
-            An interactive Natural Language Processing application built with Streamlit to support text
-            preprocessing and analysis tasks such as tokenization, lemmatization, part-of-speech tagging, named
-            entity recognition, sentiment analysis, and time-series analysis. The overall goal is to enable non-technical users to
-            apply mood detection (Zero-Shot with BART model from Hugging Face), BERTopic modelling, and text cleaning
-            and EDA of text data. Project was part of an internship with the UBC Data Science Institute.
-        </p>
-
-        <h3>Tech & Approach</h3>
-        <p>
-            Developed in Python using Streamlit for the user interface, the app leverages Facebook Prophet, SpaCy, BERTopic, nltk, transformers, etc. for linguistic
-            tasks. The pipeline
-            performs the above tasks efficiently and visualizes results directly in the browser with minimal setup. A text dataset must be uploaded to see results.
-        </p>
-    </div>
-    <button class="project-summary-toggle" type="button" aria-expanded="false" aria-controls="summary-nlp">
-        <span>Read more</span>
-    </button>
-
-    <div class="button-group">
-        <a href="https://github.com/tiffchu/NLP_app" class="primary" target="_blank">GitHub Repo</a>
-        <a href="https://nlp-tool.streamlit.app/" target="_blank">Live Demo</a>
-        <a href="assets/pdfs/dssg.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="pdf-button">
-            Final report ↗
+        <article class="card project-card">
+            <a class="project-thumbnail" href="projects/ibd.html" aria-label="View IBD analysis case study">
+                <img src="assets/videos/dashboardgif.gif" alt="Preview of the IBD analysis dashboard">
+                <span>View case study</span>
             </a>
+            <div class="project-card-header">
+                <p class="project-card-kicker">Masters Capstone</p>
+                <h2>Reproducible Framework for IBD Analysis</h2>
+                <p class="project-partner">BC Children's Hospital Research Institute</p>
+                <ul class="project-tags" aria-label="IBD project technologies">
+                    <li>R &amp; Shiny</li>
+                    <li>Quarto</li>
+                    <li>Data pipelines</li>
+                </ul>
+            </div>
+            <p class="project-card-summary">A reproducible pipeline and dashboard that bring clinical, dietary, biomarker, and mycobiome data together for IBD research.</p>
+            <div class="button-group project-card-actions">
+                <a class="primary" href="projects/ibd.html">View case study</a>
+                <a href="https://github.com/tiffchu/BC_Childrens_Research_Institute_IBD_demo/tree/main" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </article>
 
+        <article class="card project-card">
+            <a class="project-thumbnail" href="projects/nlp.html" aria-label="View NLP tool case study">
+                <img src="assets/images/nlp.png" alt="Preview of the NLP analysis application">
+                <span>View case study</span>
+            </a>
+            <div class="project-card-header">
+                <p class="project-card-kicker">Data Science Internship</p>
+                <h2>NLP Tool &amp; Analysis App</h2>
+                <p class="project-partner">UBC Data Science Institute</p>
+                <ul class="project-tags" aria-label="NLP project technologies">
+                    <li>Python</li>
+                    <li>Streamlit</li>
+                    <li>NLP</li>
+                </ul>
+            </div>
+            <p class="project-card-summary">An interactive Streamlit app that makes text cleaning, linguistic analysis, sentiment, and topic modelling accessible to non-technical users.</p>
+            <div class="button-group project-card-actions">
+                <a class="primary" href="projects/nlp.html">View case study</a>
+                <a href="https://nlp-tool.streamlit.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
+            </div>
+        </article>
+
+        <article class="card project-card">
+            <a class="project-thumbnail" href="projects/icu-topic-modelling.html" aria-label="View ICU topic modelling case study">
+                <img src="assets/images/project-thumbnails/icu-topic-modelling.png" alt="Cover page of the ICU topic modelling research report">
+                <span>View case study</span>
+            </a>
+            <div class="project-card-header">
+                <p class="project-card-kicker">Lab Research</p>
+                <h2>Topic Modelling of ICU Transcripts</h2>
+                <p class="project-partner">UBC School of Nursing</p>
+                <ul class="project-tags" aria-label="ICU transcript project technologies">
+                    <li>Python</li>
+                    <li>LDA</li>
+                    <li>Qualitative health data</li>
+                </ul>
+            </div>
+            <p class="project-card-summary">Latent Dirichlet Allocation applied to ICU-survivor transcripts to surface challenges that may contribute to unplanned readmission.</p>
+            <div class="button-group project-card-actions">
+                <a class="primary" href="projects/icu-topic-modelling.html">View case study</a>
+                <a href="https://github.com/tiffchu/COGS402-research_proj" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </article>
+
+        <article class="card project-card">
+            <a class="project-thumbnail" href="projects/senate-investments.html" aria-label="View Senate investments case study">
+                <img src="assets/images/project-thumbnails/senate-investments.png" alt="Cover slide for the Senate investments anomaly detection project">
+                <span>View case study</span>
+            </a>
+            <div class="project-card-header">
+                <p class="project-card-kicker">Machine Learning Capstone</p>
+                <h2>Anomaly Detection in U.S. Senate Investments</h2>
+                <p class="project-partner">Financial disclosure analysis</p>
+                <ul class="project-tags" aria-label="Senate investments project technologies">
+                    <li>Python</li>
+                    <li>Anomaly detection</li>
+                    <li>Time series</li>
+                </ul>
+            </div>
+            <p class="project-card-summary">An unsupervised machine learning pipeline that highlights unusual patterns in publicly disclosed U.S. Senate transactions.</p>
+            <div class="button-group project-card-actions">
+                <a class="primary" href="projects/senate-investments.html">View case study</a>
+                <a href="https://github.com/tiffchu/Anomaly_Detection_US_Senate" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </article>
     </div>
-    <div class="project-details">
-        <div class="project-images">
-            <img src="assets/images/nlp.png" alt="NLP App Streamlit Screenshot">
-        </div>
-    </div>
-</section>
-
-
-
-<!-- COGS402 Research Project -->
-<section class="card project-card">
-    <div class="project-card-header">
-        <p class="project-card-kicker">Independent Research</p>
-        <h2>Topic Modelling of ICU Transcripts</h2>
-        <p class="project-partner">UBC School of Nursing</p>
-        <ul class="project-tags" aria-label="ICU transcript project technologies">
-            <li>Python</li>
-            <li>LDA</li>
-            <li>Qualitative health data</li>
-        </ul>
-    </div>
-
-    <div class="project-summary" id="summary-cogs">
-        <h3>Overview</h3>
-        <p>
-            This independent project was done with supervision and data from the UBC School of Nursing, exploring computational methods
-            to quantify and analyze qualitative health data as part of a term-long research investigation. This project analyzes transcripts from intensive care unit (ICU)
-            survivors using natural language processing (NLP) techniques. The aim is to identify the challenges people experience after hospitalization
-            that might contribute to an unplanned readmission. This project is particularly meaningful to me as I was a participant in this study, after my discharge from RGH.
-        </p>
-        <p>
-            Research project is part of a qualitative study led by Dr. Fuchsia Howard. <a href="https://icusurvivorphotovoice.nursing.ubc.ca/" class="primary" target="_blank">Link to Photovoice study</a>
-        </p>
-
-        <h3>Approach & Methods</h3>
-        <p>
-            The work included data cleaning/ conversion, statistical modeling using Latent Dirichlet Allocation,
-            and visualization to derive insights. The research was conducted in Jupyter notebooks and supported by written analysis.
-            Tech stack included Gensim, SpaCy, pyLDAvis, sklearn, etc. Evaluation of the topic model was done with coherence scores and perplexity metrics.
-        </p>
-    </div>
-    <button class="project-summary-toggle" type="button" aria-expanded="false" aria-controls="summary-cogs">
-        <span>Read more</span>
-    </button>
-
-    <div class="button-group">
-        <a href="https://github.com/tiffchu/COGS402-research_proj" class="primary" target="_blank">GitHub Repo</a>
-        <a href="https://github.com/tiffchu/COGS402-research_proj/blob/main/TC_FinalPaper_402.pdf" target="_blank">Project Paper / PDF</a>
-        <a href="https://github.com/tiffchu/COGS402-research_proj/blob/main/TC_slides_402.pdf" target="_blank">Slides</a>
-    </div>
-
-    <div class="project-details">
-        <h3>Report</h3>
-        <iframe class="pdf-embed" src="assets/pdfs/report.pdf" title="Topic modelling project report"></iframe>
-    </div>
-
-</section>
-
-<!-- Anomaly Detection in US Senate Investments -->
-<section class="card project-card">
-    <div class="project-card-header">
-        <p class="project-card-kicker">Machine Learning Capstone</p>
-        <h2>Anomaly Detection in U.S. Senate Investments</h2>
-        <p class="project-partner">Financial disclosure analysis</p>
-        <ul class="project-tags" aria-label="Senate investments project technologies">
-            <li>Python</li>
-            <li>Anomaly detection</li>
-            <li>Time series</li>
-        </ul>
-    </div>
-
-    <!-- <div class="project-images">
-        <img src="assets/images/anomaly_senate_1.jpeg" alt="Anomaly Detection Screenshot">
-        <img src="assets/images/anomaly_senate_2.jpeg" alt="Anomaly Detection Screenshot 2">
-        <img src="assets/images/anomaly_senate_3.jpeg" alt="Anomaly Detection Screenshot 3">
-    </div> -->
-
-    <div class="project-summary" id="summary-senate">
-        <h3>Overview</h3>
-        <p>
-            This project investigates unusual or statistically significant patterns in financial transactions
-            associated with members of the U.S. Senate, using anomaly detection techniques to highlight outliers
-            that may warrant closer inspection.
-        </p>
-
-        <h3>Methodology</h3>
-        <p>
-            The core pipeline includes data extraction and cleaning from publicly available financial disclosures,
-            feature engineering to quantify investor behavior and combine with S&P market data, and the application of
-            unsupervised anomaly detection models hierarchical clustering and LSTM autoencoders to identify unusual activity. Results are
-            visualized with interactive plots and documented in analysis notebooks.
-        </p>
-    </div>
-    <button class="project-summary-toggle" type="button" aria-expanded="false" aria-controls="summary-senate">
-        <span>Read more</span>
-    </button>
-
-    <div class="button-group">
-        <a href="https://github.com/tiffchu/Anomaly_Detection_US_Senate" class="primary" target="_blank">GitHub Repo</a>
-        <a href="https://github.com/tiffchu/Anomaly_Detection_US_Senate/blob/main/sprint4/capstone-sprint4-Main.ipynb" target="_blank">Results Notebook</a>
-        <a href="https://sites.google.com/view/tiff-anomaly-detection/home" target="_blank">Website</a>
-    </div>
-    <div class="project-details">
-        <h3>Project Slides</h3>
-        <iframe
-            src="assets/pdfs/stonks.pdf"
-            class="pdf-embed"
-            title="Project slides">
-        </iframe>
-
-    <!-- <h3>Website</h3>
-    <iframe
-        src="https://sites.google.com/view/tiff-anomaly-detection/home"
-        class="website-embed"
-        title="Findings"
-        loading="lazy">
-    </iframe> -->
-
-    <p>
-        This site does not allow embedding. View website and findings here:
-        <a href="https://sites.google.com/view/tiff-anomaly-detection/home" target="_blank">
-            View live demo ↗
-        </a>
-    </p>
-    </div>
-</section>
-
-    </div>
-
-<!--
-<section class="card">
-    <h2>Project Title</h2>
-
-    <div class="image-placeholder">
-        Project Screenshot / Visualization
-    </div>
-
-    <h3>Problem</h3>
-    <p>
-         the problem you were trying to solve and why it mattered. if at all. LOL!
-         might put this all into one single paragraph instead to make space for 4ish projects??
-    </p>
-
-    <h3>Approach</h3>
-    <p>
-        list da methodology, models, pipelines, preprocessing steps,
-        and any design decisions.
-    </p>
-
-    <h3>Results & Impact</h3>
-    <p>
-        honestly might skip this. summarize outcomes, metrics, insights, or real-world implications.
-    </p>
-
-    <div class="button-group">
-        <a href="#" class="primary">GitHub</a>
-        <a href="#">Live Demo</a>
-    </div>
-
-    <h3>Project Report</h3>
-    <iframe
-        class="pdf-embed"
-        src="assets/pdfs/project-report.pdf">
-    </iframe>
-</section> -->
-
 </main>
 
 <footer>
-    © 2025 With love, Tiffany :D
+    &copy; 2025 With love, Tiffany :D
 </footer>
-    <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
