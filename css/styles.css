@@ -259,6 +259,10 @@ h3 {
     --accent-soft: #e5f2f1;
     --accent-warm: #ff7b6e;
     --accent-lilac: #ece8f8;
+    --pill-nav-bg: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+    --pill-nav-border: color-mix(in srgb, var(--accent) 18%, var(--border));
+    --pill-highlight-bg: var(--accent);
+    --pill-highlight-text: var(--bg-elevated);
     --shadow-sm: 0 1px 2px rgba(16, 35, 38, 0.06);
     --shadow-md: 0 16px 40px rgba(16, 35, 38, 0.08);
 }
@@ -273,6 +277,10 @@ h3 {
     --accent-soft: #203331;
     --accent-warm: #ff9b8c;
     --accent-lilac: #28243a;
+    --pill-nav-bg: color-mix(in srgb, var(--bg-elevated) 80%, transparent);
+    --pill-nav-border: color-mix(in srgb, var(--accent) 20%, var(--border));
+    --pill-highlight-bg: var(--accent);
+    --pill-highlight-text: var(--bg);
 }
 
 body {
@@ -417,29 +425,73 @@ nav ul {
 }
 
 .nav-links {
+    position: relative;
     justify-content: center;
     flex: 1 1 auto;
+    gap: 0.25rem;
+    width: max-content;
+    max-width: 100%;
+    padding: 0.25rem;
+    border: 1px solid var(--pill-nav-border);
+    border-radius: 999px;
+    background: var(--pill-nav-bg);
+    box-shadow:
+        0 14px 34px rgba(16, 35, 38, 0.08),
+        inset 0 1px 0 color-mix(in srgb, white 52%, transparent);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.nav-links::before {
+    content: "";
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    width: var(--pill-width, 0px);
+    height: calc(100% - 0.5rem);
+    border-radius: 999px;
+    background: var(--pill-highlight-bg);
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--accent) 24%, transparent);
+    opacity: var(--pill-opacity, 0);
+    transform: translateX(var(--pill-left, 0px));
+    transition:
+        transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+        width 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease;
+    z-index: 0;
+}
+
+.nav-links li {
+    position: relative;
+    z-index: 1;
 }
 
 .nav-links a {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
     min-height: 42px;
-    padding: 0 0.9rem;
-    border-radius: 8px;
+    padding: 0 1rem;
+    border-radius: 999px;
     color: var(--text-primary);
     font-size: 0.96rem;
     font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.22s ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    background: var(--accent-soft);
-    color: var(--accent);
+    background: transparent;
 }
 
 .nav-links a.active {
-    box-shadow: inset 0 -3px 0 var(--accent);
+    box-shadow: none;
+}
+
+.nav-links a.is-pill-target {
+    color: var(--pill-highlight-text);
 }
 
 .nav-links li:has(#theme-toggle) {

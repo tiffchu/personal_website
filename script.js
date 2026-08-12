@@ -63,6 +63,45 @@ function updateHomeVanta() {
 window.addEventListener("load", updateHomeVanta);
 updateHomeVanta();
 
+document.querySelectorAll(".nav-links").forEach((navLinks) => {
+    const links = Array.from(navLinks.querySelectorAll("a"));
+    const activeLink = links.find((link) => link.classList.contains("active")) || links[0];
+
+    function setPill(link) {
+        if (!link) {
+            links.forEach((item) => item.classList.remove("is-pill-target"));
+            navLinks.style.setProperty("--pill-opacity", "0");
+            return;
+        }
+
+        const navRect = navLinks.getBoundingClientRect();
+        const linkRect = link.getBoundingClientRect();
+        const styles = getComputedStyle(navLinks);
+        const inset = parseFloat(styles.paddingLeft) || 0;
+
+        links.forEach((item) => item.classList.toggle("is-pill-target", item === link));
+        navLinks.style.setProperty("--pill-left", `${Math.max(0, linkRect.left - navRect.left - inset)}px`);
+        navLinks.style.setProperty("--pill-width", `${linkRect.width}px`);
+        navLinks.style.setProperty("--pill-opacity", "1");
+    }
+
+    links.forEach((link) => {
+        link.addEventListener("mouseenter", () => setPill(link));
+        link.addEventListener("focus", () => setPill(link));
+    });
+
+    navLinks.addEventListener("mouseleave", () => setPill(activeLink));
+    navLinks.addEventListener("focusout", () => requestAnimationFrame(() => {
+        if (!navLinks.contains(document.activeElement)) {
+            setPill(activeLink);
+        }
+    }));
+
+    window.addEventListener("resize", () => setPill(activeLink));
+    window.addEventListener("load", () => setPill(activeLink));
+    setPill(activeLink);
+});
+
 const finePointer = window.matchMedia("(pointer: fine)");
 
 const dotGrid = document.createElement("div");
