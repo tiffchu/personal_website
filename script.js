@@ -70,6 +70,32 @@ dotGrid.className = "dot-grid";
 dotGrid.setAttribute("aria-hidden", "true");
 document.body.prepend(dotGrid);
 
+if (finePointer.matches) {
+    let dotGridFrame = null;
+    let dotGridX = window.innerWidth / 2;
+    let dotGridY = window.innerHeight / 2;
+
+    const syncDotGridPointer = () => {
+        dotGrid.style.setProperty("--dot-x", `${dotGridX}px`);
+        dotGrid.style.setProperty("--dot-y", `${dotGridY}px`);
+        dotGridFrame = null;
+    };
+
+    document.addEventListener("pointermove", (event) => {
+        dotGridX = event.clientX;
+        dotGridY = event.clientY;
+        dotGrid.classList.add("is-active");
+
+        if (dotGridFrame === null) {
+            dotGridFrame = requestAnimationFrame(syncDotGridPointer);
+        }
+    });
+
+    document.addEventListener("pointerleave", () => {
+        dotGrid.classList.remove("is-active");
+    });
+}
+
 document.querySelectorAll("[data-option-wheel]").forEach((wheel) => {
     const items = Array.from(wheel.querySelectorAll(".option-wheel__item"));
     const selectedAtLoad = Math.max(
