@@ -1,6 +1,30 @@
 const toggle = document.getElementById("theme-toggle");
 const root = document.documentElement;
 
+const typewriterName = document.querySelector(".typewriter-name");
+const typewriterCursor = document.querySelector(".typewriter-cursor");
+
+if (typewriterName && typewriterCursor && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const name = typewriterName.textContent;
+    let characterIndex = 0;
+
+    typewriterName.textContent = "";
+    typewriterCursor.hidden = false;
+
+    const typeNextCharacter = () => {
+        typewriterName.textContent += name[characterIndex];
+        characterIndex += 1;
+
+        if (characterIndex < name.length) {
+            window.setTimeout(typeNextCharacter, 115);
+        } else {
+            typewriterCursor.hidden = true;
+        }
+    };
+
+    window.setTimeout(typeNextCharacter, 150);
+}
+
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
     root.setAttribute("data-theme", savedTheme);

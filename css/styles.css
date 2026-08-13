@@ -1066,6 +1066,18 @@ h3 {
     margin-bottom: 3rem;
 }
 
+.typewriter-cursor {
+    display: inline-block;
+    width: 0.075em;
+    height: 0.78em;
+    margin-left: 0.08em;
+    background: currentColor;
+}
+
+.typewriter-cursor[hidden] {
+    display: none;
+}
+
 .home-hero h1::after {
     content: "";
     width: 128px;
