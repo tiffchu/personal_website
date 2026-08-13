@@ -2,50 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiffany | Portfolio</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-<header>
-    <nav>
-        <h1>Tiffany Chu (朱嘉穎)</h1> 
-        <p class="mode-label">Creative Mode Active</p>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <!--<li><a href="about.html">About</a></li>-->
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="hobbies.html">Hobbies</a></li>
-            <li><a href="cv.html">CV</a></li>
-            <li><a href="game.html">Game</a></li>
-            <li>
-                <button id="theme-toggle" aria-label="Toggle dark mode">
-                    🌙
-                </button>
-            </li>
-            <li>
-                <button id="style-toggle" aria-label="Toggle creative mode">
-                    🎨
-                </button>
-                
-            </li>
+<body class="home-page">
+<div id="home-vanta-clouds" aria-hidden="true"></div>
+<button id="theme-toggle" class="home-theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
 
-        </ul>
-    </nav>
-</header>
+<div class="option-wheel option-wheel--right" data-option-wheel role="listbox" tabindex="0" aria-label="Site navigation">
+    <a class="option-wheel__item option-wheel__item--selected" role="option" aria-selected="true" href="index.html">Home</a>
+    <a class="option-wheel__item" role="option" aria-selected="false" href="projects.html">Projects</a>
+    <a class="option-wheel__item" role="option" aria-selected="false" href="hobbies.html">Hobbies</a>
+    <a class="option-wheel__item" role="option" aria-selected="false" href="cv.html">CV</a>
+    <a class="option-wheel__item" role="option" aria-selected="false" href="game.html">Game</a>
+</div>
 
 <main>
-    <section>
-        <h2>Hello, welcome to my website</h2>
-        <p>
-            I’m a master's student studying data science at UBC with interests in natural language processing and game theory while also working as a research analyst at Lodestar Media. This site showcases my projects, background, and the interests
-            that shape how I think and build. Additonally, I have an undergrad degree in cognitive systems and commerce, with experience
-            building NLP machine learning models in research settings. More importantly, I am looking for a new car, please email me with any leads.
-        </p>
+    <section class="home-hero">
+        <div class="hero-copy">
+            <p class="section-label">Portfolio</p>
+            <h1>Tiffany Chu</h1>
+            <!-- <p class="hero-subtitle">Python  •   SQL  •   NLP  •   ML</p> -->
+            <p class="hero-subtitle">Welcome to my website!</p>
+            <p>
+                I'm a master's student at UBC and also work as a research analyst. My interests are in natural language processing and game theory.
+                This site showcases my projects, background, and the interests
+                that shape how I think and build. Additonally, I have an undergrad degree in cognitive systems and commerce (minor), with experience
+                building NLP machine learning models in research settings. More importantly, I am looking for a new car, please email me with any leads.
+            </p>
+
+            <div class="social-links" aria-label="Social and contact links">
+                <a href="mailto:tiffanymchu@gmail.com">Email</a>
+                <a href="https://github.com/tiffchu" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="assets/pdfs/CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+            </div>
+        </div>
+
+    </section>
 </main>
 
 <footer class="site-footer">
@@ -62,23 +59,23 @@
             <ul>
                 <li><a href="game.html">Snake Game</a></li>
             </ul>
-        </div> 
+        </div>
 
         <div class="footer-section">
             <h4>Links</h4>
             <ul>
-                <li><a href="https://github.com/tiffchu" target="_blank">GitHub</a></li>
-              
+                <li><a href="https://github.com/tiffchu" target="_blank" rel="noopener noreferrer">GitHub</a></li>
             </ul>
         </div>
 
     </div>
 
     <div class="footer-bottom">
-        <p><em>© 2025 Tiffany Chu · Built with &hearts;</em></p>
+        <p><em>&copy; 2025 Tiffany Chu &middot; Built with &hearts;</em></p>
     </div>
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
-

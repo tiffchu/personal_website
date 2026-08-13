@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBD Analysis Framework | Tiffany Chu</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <a class="brand" href="../index.html" aria-label="Tiffany Chu home">
+            <span class="brand-mark" aria-hidden="true">TC</span>
+            <span class="brand-name">Tiffany Chu</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a class="active" href="../projects.html">Projects</a></li>
+            <li><a href="../hobbies.html">Hobbies</a></li>
+            <li><a href="../cv.html">CV</a></li>
+            <li><a href="../game.html">Game</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+        </div>
+    </nav>
+</header>
+
+<main class="project-detail-page">
+    <a class="back-link" href="../projects.html">Back to projects</a>
+    <section class="project-detail-hero" aria-labelledby="project-heading">
+        <div class="project-detail-heading">
+            <p class="project-card-kicker">Masters Capstone</p>
+            <h1 id="project-heading">Reproducible Framework for IBD Analysis</h1>
+            <ul class="project-tags" aria-label="IBD project technologies">
+                <li>R &amp; Shiny</li>
+                <li>Quarto</li>
+                <li>Data pipelines</li>
+                <li>Make</li>
+                <li>statistical analysis</li>
+                <li>Patient data</li>
+            </ul>
+        </div>
+        <aside class="project-detail-summary" aria-label="Project summary">
+            <p>A reproducible clinical research pipeline and dashboard for exploring IBD participant and cohort data.</p>
+            <p class="project-detail-partner">In partnership with BC Children's Hospital Research Institute</p>
+            <div class="button-group project-detail-actions">
+                <a class="primary" href="https://tiffchu.github.io/BC_Childrens_Research_Institute_IBD_demo/" target="_blank" rel="noopener noreferrer">Stats site + EDA</a>
+                <a href="https://github.com/tiffchu/BC_Childrens_Research_Institute_IBD_demo/tree/main" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+            </div>
+        </aside>
+    </section>
+
+    <figure class="project-detail-media">
+        <img src="../assets/videos/dashboardgif.gif" alt="Animated walkthrough of the IBD analysis dashboard">
+        <figcaption>Interactive dashboard for participant- and cohort-level exploration.</figcaption>
+    </figure>
+
+    <div class="project-detail-content">
+        <section>
+            <p class="section-label">Overview</p>
+            <h2>Turning multi-source data into usable research tools</h2>
+            <p>This project works on turning raw clinical, dietary, biomarker, and mycobiome data into reproducible data products: cleaned processed files, exploratory visualizations, Quarto-based statistical reports, and a Shiny dashboard for participant- and cohort-level exploration.</p>
+            <p>The goal is to provide a non-technical audience of clinicians and researchers with a user-friendly interface to explore and combine IBD data sources and gain insights into IBD.</p>
+        </section>
+
+        <section>
+            <p class="section-label">Approach</p>
+            <h2>A modular, rerunnable analysis pipeline</h2>
+            <p>Started with a data cleaning and preprocessing pipeline in Python before converting to R, with renv for environment management, followed by exploratory data analysis and visualization. This project uses Quarto for the statistical reporting site, and Shiny for the interactive dashboard. The approach is modular and pipeline-driven -> raw domain files are cleaned separately, standardized through shared helpers, merged into analysis-ready tables, and then reused across both the reporting site and dashboard so the same processed data powers all downstream outputs. The Makefile organizes the project into steps like cleaning, stats rendering, and app launch, so the same pipeline can be rerun end to end from raw inputs, with github pages re-rendering the stats site automatically.</p>
+        </section>
+    </div>
+</main>
+
+<footer>&copy; 2025 With love, Tiffany :D</footer>
+<script src="../script.js"></script>
+</body>
+</html>

@@ -2,35 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hobbies</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
     <nav>
-        <h1>Tiffany Chu</h1>
-        <p class="mode-label">Creative Mode Active</p>
-        <ul>
+        <a class="brand" href="index.html" aria-label="Tiffany Chu home">
+            <span class="brand-mark" aria-hidden="true">TC</span>
+            <span class="brand-name">Tiffany Chu</span>
+        </a>
+        <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="projects.html">Projects</a></li>
-            <li><a href="hobbies.html">Hobbies</a></li>
+            <li><a class="active" href="hobbies.html">Hobbies</a></li>
             <li><a href="cv.html">CV</a></li>
             <li><a href="game.html">Game</a></li>
-            <li>
-                <button id="theme-toggle" aria-label="Toggle dark mode">
-                    🌙
-                </button>
-            </li>
-            <li>
-                <button id="style-toggle" aria-label="Toggle creative mode">
-                    🎨
-                </button>
-            </li>
         </ul>
+
+        <div class="nav-actions">
+            <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+        </div>
     </nav>
 </header>
 

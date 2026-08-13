@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Tool &amp; Analysis App | Tiffany Chu</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <a class="brand" href="../index.html" aria-label="Tiffany Chu home"><span class="brand-mark" aria-hidden="true">TC</span><span class="brand-name">Tiffany Chu</span></a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li><li><a class="active" href="../projects.html">Projects</a></li><li><a href="../hobbies.html">Hobbies</a></li><li><a href="../cv.html">CV</a></li><li><a href="../game.html">Game</a></li>
+        </ul>
+        <div class="nav-actions"><button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button></div>
+    </nav>
+</header>
+
+<main class="project-detail-page">
+    <a class="back-link" href="../projects.html">Back to projects</a>
+    <section class="project-detail-hero" aria-labelledby="project-heading">
+        <div class="project-detail-heading">
+            <p class="project-card-kicker">Data Science Internship</p>
+            <h1 id="project-heading">NLP Tool &amp; Analysis App</h1>
+            <ul class="project-tags" aria-label="NLP project technologies"><li>Python</li><li>Streamlit</li><li>BERTopic sentiment analysis</li><li>Transformers</li><li>HuggingFace BART</li><li>PyTorch</li><li>sklearn</li></ul>
+        </div>
+        <aside class="project-detail-summary" aria-label="Project summary">
+            <p>An interactive Streamlit workspace for cleaning, exploring, and modelling text datasets without a command line.</p>
+            <p class="project-detail-partner">UBC Data Science Institute</p>
+            <div class="button-group project-detail-actions">
+                <a class="primary" href="https://nlp-tool.streamlit.app/" target="_blank" rel="noopener noreferrer">Live demo</a>
+                <a href="https://github.com/tiffchu/NLP_app" target="_blank" rel="noopener noreferrer">GitHub repo</a>
+                <a href="../assets/pdfs/nlp.pdf" target="_blank" rel="noopener noreferrer">Final report</a>
+            </div>
+        </aside>
+    </section>
+
+    <figure class="project-detail-media">
+        <img src="../assets/images/nlp.png" alt="Screenshot of the NLP analysis application">
+        <figcaption>A browser-based interface for exploring and analyzing uploaded text datasets.</figcaption>
+    </figure>
+
+    <div class="project-detail-content">
+        <section>
+            <p class="section-label">Overview</p>
+            <h2>Text analysis for non-technical users</h2>
+            <p>An interactive Natural Language Processing application built with Streamlit to support text preprocessing and analysis tasks such as tokenization, lemmatization, part-of-speech tagging, named entity recognition, sentiment analysis, and time-series analysis. Which later is used in mood detection (Zero-Shot with BART model from Hugging Face), BERTopic modelling, recommender systems (mentor-mentee matching), text cleaning and EDA of text data. Project was part of an internship with the UBC Data Science Institute.</p>
+        </section>
+        <section>
+            <p class="section-label">Approach</p>
+            <h2>A lightweight analysis workflow in the browser</h2>
+            <p>Developed in Python using Streamlit for the user interface, the app leverages Facebook Prophet, SpaCy, BERTopic, nltk, transformers, etc. for linguistic tasks. The pipeline performs the above tasks efficiently and visualizes results directly in the browser with minimal setup. A text dataset must be uploaded to see results.</p>
+        </section>
+    </div>
+
+    <section class="project-report-section" aria-labelledby="nlp-report-heading">
+        <p class="section-label">Final report</p>
+        <h2 id="nlp-report-heading">Read the full analysis</h2>
+        <iframe class="pdf-embed" src="../assets/pdfs/nlp.pdf" title="NLP tool final report"></iframe>
+    </section>
+</main>
+
+<footer>&copy; 2025 With love, Tiffany :D</footer>
+<script src="../script.js"></script>
+</body>
+</html>
