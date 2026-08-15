@@ -9,52 +9,179 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         .game-container {
+            max-width: 640px;
+            margin-inline: auto;
             text-align: center;
         }
 
-        #gameCanvas {
-            background-color: #111;
-            border-radius: 12px;
-            margin-top: 1.5rem;
+        .game-container > p {
+            max-width: 34rem;
+            margin: 0 auto;
         }
 
         .game-info {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 0.8rem;
             margin-top: 1rem;
-            font-size: 1.1rem;
+            font-size: 1.02rem;
+        }
+
+        .game-info div,
+        .game-status {
+            min-width: 8rem;
+            padding: 0.55rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: color-mix(in srgb, var(--accent-soft) 58%, var(--bg-elevated));
+            color: var(--text-secondary);
         }
 
         .game-info span {
-            font-weight: 600;
+            color: var(--text-primary);
+            font-weight: 700;
         }
 
-        .game-controls button {
-            margin-top: 1.5rem;
-            padding: 0.6rem 1.4rem;
-            font-size: 1rem;
-            border-radius: 6px;
-            border: none;
+        .game-board {
+            position: relative;
+            width: min(100%, 400px);
+            aspect-ratio: 1;
+            margin: 1.5rem auto 0;
+            overflow: hidden;
+            border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
+            border-radius: 8px;
+            background: #102326;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+            touch-action: none;
+        }
+
+        #gameCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .game-overlay {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 1.5rem;
+            background: rgba(16, 35, 38, 0.78);
+            color: #ffffff;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease;
+        }
+
+        .game-overlay.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .game-overlay-panel {
+            width: min(100%, 18rem);
+            padding: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 8px;
+            background: rgba(16, 35, 38, 0.92);
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+        }
+
+        .game-overlay-panel h3 {
+            margin-bottom: 0.35rem;
+            color: #ffffff;
+        }
+
+        .game-overlay-panel p {
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .game-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.7rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .game-button,
+        .touch-control {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
             cursor: pointer;
-            background-color: #2a6df4;
-            color: white;
+            background-color: var(--accent);
+            color: var(--bg-elevated);
+            font: inherit;
+            font-weight: 700;
         }
 
-        .game-controls button:hover {
+        .game-button {
+            padding: 0.6rem 1.15rem;
+        }
+
+        .game-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.48;
+        }
+
+        .game-button:hover:not(:disabled),
+        .touch-control:hover {
             opacity: 0.9;
         }
 
+        .touch-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 52px);
+            grid-template-rows: repeat(2, 52px);
+            justify-content: center;
+            gap: 0.45rem;
+            margin-top: 1.2rem;
+        }
+
+        .touch-control {
+            min-height: 52px;
+            padding: 0;
+            font-size: 1.35rem;
+        }
+
+        .touch-control[data-direction="UP"] {
+            grid-column: 2;
+        }
+
+        .touch-control[data-direction="LEFT"] {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .touch-control[data-direction="DOWN"] {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .touch-control[data-direction="RIGHT"] {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
         .instructions {
-            color: #555;
+            color: var(--text-secondary);
             margin-top: 1rem;
         }
-        .game-controls {
-            margin-top: 1rem;
-            text-align: center;
+
+        @media (min-width: 720px) {
+            .touch-controls {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -84,99 +211,191 @@
         <h2>Snake Game</h2>
 
         <p>
-            Classic Snake game
+            Arrow keys, WASD, swipe, or tap the controls.
         </p>
 
         <div class="game-info">
             <div>Score: <span id="score">0</span></div>
             <div>High Score: <span id="highScore">0</span></div>
+            <div class="game-status" id="gameStatus">Ready</div>
         </div>
 
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div class="game-board" id="gameBoard">
+            <canvas id="gameCanvas" width="400" height="400" aria-label="Snake game board"></canvas>
+            <div class="game-overlay" id="gameOverlay" aria-live="polite">
+                <div class="game-overlay-panel">
+                    <h3 id="overlayTitle">Game Over</h3>
+                    <p id="overlayText">Score: 0</p>
+                    <button class="game-button" id="overlayBtn" type="button">Play Again</button>
+                </div>
+            </div>
+        </div>
 
         <div class="game-controls">
-            <button id="startBtn">Start Game</button>
+            <button class="game-button" id="startBtn" type="button">Start Game</button>
+            <button class="game-button" id="pauseBtn" type="button" disabled>Pause</button>
+        </div>
+
+        <div class="touch-controls" aria-label="Touch controls">
+            <button class="touch-control" type="button" data-direction="UP" aria-label="Move up">&uarr;</button>
+            <button class="touch-control" type="button" data-direction="LEFT" aria-label="Move left">&larr;</button>
+            <button class="touch-control" type="button" data-direction="DOWN" aria-label="Move down">&darr;</button>
+            <button class="touch-control" type="button" data-direction="RIGHT" aria-label="Move right">&rarr;</button>
         </div>
 
         <p class="instructions">
-            Controls: ↑ ↓ ← →
+            Controls: &uarr; &darr; &larr; &rarr; / WASD. Press Space or P to pause.
         </p>
     </section>
 </main>
 
-<footer>
-    © 2025 With love, Tiffany xD
+<footer class="site-footer">
+    <div class="footer-bottom">
+        <p><em>&copy; 2025 Tiffany Chu &middot; Built with &hearts;</em></p>
+    </div>
 </footer>
 
 <script>
-/* --------- Canvas Setup --------- */
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-const box = 20;
-
-/* --------- DOM Elements --------- */
+const board = document.getElementById("gameBoard");
 const scoreEl = document.getElementById("score");
 const highScoreEl = document.getElementById("highScore");
+const statusEl = document.getElementById("gameStatus");
 const startBtn = document.getElementById("startBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const overlay = document.getElementById("gameOverlay");
+const overlayTitle = document.getElementById("overlayTitle");
+const overlayText = document.getElementById("overlayText");
+const overlayBtn = document.getElementById("overlayBtn");
 
-/* --------- Game State --------- */
-let snake, food, direction, score, gameInterval;
+const box = 20;
+const gridSize = 20;
+const boardSize = box * gridSize;
+const tickSpeed = 120;
+
+let snake = [{ x: 9 * box, y: 10 * box }];
+let food = { x: 14 * box, y: 10 * box };
+let direction = "RIGHT";
+let nextDirection = "RIGHT";
+let score = 0;
+let gameInterval = null;
 let isRunning = false;
+let isPaused = false;
+let touchStart = null;
+let highScore = Number(localStorage.getItem("snakeHighScore")) || 0;
 
-/* --------- High Score Storage --------- */
-let highScore = localStorage.getItem("snakeHighScore") || 0;
 highScoreEl.textContent = highScore;
 
-/* --------- Controls --------- */
-document.addEventListener("keydown", changeDirection);
+document.addEventListener("keydown", handleKeyDown);
+startBtn.addEventListener("click", startGame);
+pauseBtn.addEventListener("click", togglePause);
+overlayBtn.addEventListener("click", handleOverlayButton);
+board.addEventListener("touchstart", handleTouchStart, { passive: true });
+board.addEventListener("touchend", handleTouchEnd, { passive: true });
 
-function changeDirection(event) {
-    if (!isRunning) return;
+document.querySelectorAll("[data-direction]").forEach((button) => {
+    button.addEventListener("click", () => setDirection(button.dataset.direction));
+});
 
-    if (event.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-    else if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-    else if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
-    else if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
+function handleKeyDown(event) {
+    const keyMap = {
+        ArrowLeft: "LEFT",
+        a: "LEFT",
+        A: "LEFT",
+        ArrowUp: "UP",
+        w: "UP",
+        W: "UP",
+        ArrowRight: "RIGHT",
+        d: "RIGHT",
+        D: "RIGHT",
+        ArrowDown: "DOWN",
+        s: "DOWN",
+        S: "DOWN"
+    };
+
+    if (event.key in keyMap) {
+        if (isRunning) {
+            event.preventDefault();
+        }
+        setDirection(keyMap[event.key]);
+        return;
+    }
+
+    if ((event.key === " " || event.key === "p" || event.key === "P") && isRunning) {
+        event.preventDefault();
+        togglePause();
+    }
 }
 
-/* --------- Game Initialization --------- */
 function startGame() {
     clearInterval(gameInterval);
 
     snake = [{ x: 9 * box, y: 10 * box }];
     direction = "RIGHT";
+    nextDirection = "RIGHT";
     score = 0;
     scoreEl.textContent = score;
-
     food = generateFood();
-
     isRunning = true;
+    isPaused = false;
+
     startBtn.textContent = "Restart Game";
+    pauseBtn.disabled = false;
+    pauseBtn.textContent = "Pause";
+    statusEl.textContent = "Playing";
+    hideOverlay();
+    renderGame();
 
-    gameInterval = setInterval(draw, 120);
+    gameInterval = setInterval(draw, tickSpeed);
 }
 
-/* --------- Food --------- */
-function generateFood() {
-    return {
-        x: Math.floor(Math.random() * 19 + 1) * box,
-        y: Math.floor(Math.random() * 19 + 1) * box
+function togglePause() {
+    if (!isRunning) return;
+
+    isPaused = !isPaused;
+    pauseBtn.textContent = isPaused ? "Resume" : "Pause";
+    statusEl.textContent = isPaused ? "Paused" : "Playing";
+
+    if (isPaused) {
+        clearInterval(gameInterval);
+        showOverlay("Paused", "Take a breath. Your score is still " + score + ".", "Resume");
+    } else {
+        hideOverlay();
+        gameInterval = setInterval(draw, tickSpeed);
+    }
+}
+
+function setDirection(newDirection) {
+    if (!isRunning || isPaused) return;
+
+    const opposites = {
+        LEFT: "RIGHT",
+        RIGHT: "LEFT",
+        UP: "DOWN",
+        DOWN: "UP"
     };
+
+    if (newDirection !== opposites[direction]) {
+        nextDirection = newDirection;
+    }
 }
 
-/* --------- Game Loop --------- */
+function generateFood() {
+    let nextFood;
+
+    do {
+        nextFood = {
+            x: Math.floor(Math.random() * gridSize) * box,
+            y: Math.floor(Math.random() * gridSize) * box
+        };
+    } while (snake.some(segment => segment.x === nextFood.x && segment.y === nextFood.y));
+
+    return nextFood;
+}
+
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw snake
-    snake.forEach((segment, index) => {
-        ctx.fillStyle = index === 0 ? "#2a6df4" : "#9bbcff";
-        ctx.fillRect(segment.x, segment.y, box, box);
-    });
-
-    // Draw food
-    ctx.fillStyle = "#f44336";
-    ctx.fillRect(food.x, food.y, box, box);
+    direction = nextDirection;
 
     let headX = snake[0].x;
     let headY = snake[0].y;
@@ -186,41 +405,80 @@ function draw() {
     if (direction === "RIGHT") headX += box;
     if (direction === "DOWN") headY += box;
 
-    // Eat food
-    if (headX === food.x && headY === food.y) {
-        score++;
-        scoreEl.textContent = score;
-        food = generateFood();
-    } else {
-        snake.pop();
-    }
-
     const newHead = { x: headX, y: headY };
 
-    // Game over
     if (
         headX < 0 ||
         headY < 0 ||
-        headX >= canvas.width ||
-        headY >= canvas.height ||
+        headX >= boardSize ||
+        headY >= boardSize ||
         collision(newHead, snake)
     ) {
         endGame();
         return;
     }
 
-    snake.unshift(newHead);
+    if (headX === food.x && headY === food.y) {
+        score += 1;
+        scoreEl.textContent = score;
+        snake.unshift(newHead);
+        food = generateFood();
+    } else {
+        snake.unshift(newHead);
+        snake.pop();
+    }
+
+    renderGame();
 }
 
-/* --------- Collision --------- */
-function collision(head, array) {
-    return array.some(segment => segment.x === head.x && segment.y === head.y);
+function renderGame() {
+    drawBoard();
+    drawSnake();
+    drawFood();
 }
 
-/* --------- End Game --------- */
+function drawBoard() {
+    ctx.fillStyle = "#102326";
+    ctx.fillRect(0, 0, boardSize, boardSize);
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.045)";
+    ctx.lineWidth = 1;
+
+    for (let position = 0; position <= boardSize; position += box) {
+        ctx.beginPath();
+        ctx.moveTo(position, 0);
+        ctx.lineTo(position, boardSize);
+        ctx.moveTo(0, position);
+        ctx.lineTo(boardSize, position);
+        ctx.stroke();
+    }
+}
+
+function drawSnake() {
+    snake.forEach((segment, index) => {
+        ctx.fillStyle = index === 0 ? "#ff7b6e" : "#8ad6d2";
+        ctx.fillRect(segment.x + 1, segment.y + 1, box - 2, box - 2);
+    });
+}
+
+function drawFood() {
+    ctx.fillStyle = "#f7d36b";
+    ctx.beginPath();
+    ctx.arc(food.x + box / 2, food.y + box / 2, box * 0.36, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function collision(head, body) {
+    return body.some(segment => segment.x === head.x && segment.y === head.y);
+}
+
 function endGame() {
     clearInterval(gameInterval);
     isRunning = false;
+    isPaused = false;
+    pauseBtn.disabled = true;
+    pauseBtn.textContent = "Pause";
+    startBtn.textContent = "Start Game";
+    statusEl.textContent = "Game over";
 
     if (score > highScore) {
         highScore = score;
@@ -228,15 +486,57 @@ function endGame() {
         highScoreEl.textContent = highScore;
     }
 
-    alert("Game Over!");
+    showOverlay("Game Over", "Score: " + score + " | High score: " + highScore, "Play Again");
 }
 
-/* --------- Button --------- */
+function showOverlay(title, text, buttonText) {
+    overlayTitle.textContent = title;
+    overlayText.textContent = text;
+    overlayBtn.textContent = buttonText;
+    overlay.classList.add("is-visible");
+}
 
-startBtn.addEventListener("click", startGame);
+function hideOverlay() {
+    overlay.classList.remove("is-visible");
+}
+
+function handleOverlayButton() {
+    if (isRunning && isPaused) {
+        togglePause();
+    } else {
+        startGame();
+    }
+}
+
+function handleTouchStart(event) {
+    const touch = event.changedTouches[0];
+    touchStart = { x: touch.clientX, y: touch.clientY };
+}
+
+function handleTouchEnd(event) {
+    if (!touchStart) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStart.x;
+    const deltaY = touch.clientY - touchStart.y;
+
+    touchStart = null;
+
+    if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < 24) {
+        return;
+    }
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        setDirection(deltaX > 0 ? "RIGHT" : "LEFT");
+    } else {
+        setDirection(deltaY > 0 ? "DOWN" : "UP");
+    }
+}
+
+renderGame();
 </script>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
