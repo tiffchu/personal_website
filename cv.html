@@ -9,6 +9,102 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .cv-page {
+            max-width: 1040px;
+        }
+
+        .cv-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .cv-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--accent);
+            font-size: 0.92rem;
+            font-weight: 800;
+        }
+
+        .cv-action.primary {
+            background: var(--accent);
+            color: var(--bg-elevated);
+        }
+
+        .cv-action:hover {
+            background: var(--accent-soft);
+        }
+
+        .cv-action.primary:hover {
+            opacity: 0.92;
+        }
+
+        .cv-preview-card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .cv-preview-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 1rem 1.15rem;
+            border-bottom: 1px solid var(--border);
+            background: color-mix(in srgb, var(--accent-soft) 42%, var(--bg-elevated));
+        }
+
+        .cv-preview-header h2 {
+            margin: 0;
+            font-size: clamp(1.25rem, 2vw, 1.55rem);
+        }
+
+        .cv-preview-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .cv-embed-wrap {
+            height: min(78vh, 58rem);
+            min-height: 38rem;
+            background: #f4f1eb;
+        }
+
+        .cv-embed-wrap .pdf-embed {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+        }
+
+        @media (max-width: 780px) {
+            .cv-embed-wrap {
+                min-height: 32rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cv-action {
+                flex: 1 1 12rem;
+            }
+
+            .cv-embed-wrap {
+                min-height: 28rem;
+                height: 68vh;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -31,20 +127,35 @@
     </nav>
 </header>
 
-<main>
-    <section class="card">
-        <h2>Curriculum Vitae</h2>
-        <iframe 
-            class="pdf-embed"
-            src="assets/pdfs/CV.pdf">
-        </iframe>
+<main class="cv-page">
+    <section class="card cv-preview-card">
+        <div class="cv-preview-header">
+            <div>
+                <h2>Curriculum Vitae</h2>
+                <p>Preview the PDF below or open a clean full-size copy.</p>
+            </div>
+            <div class="cv-actions" aria-label="CV actions">
+                <a class="cv-action primary" href="assets/pdfs/CV.pdf" download>Download</a>
+                <a class="cv-action" href="assets/pdfs/CV.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+            </div>
+        </div>
+
+        <div class="cv-embed-wrap">
+            <iframe
+                class="pdf-embed"
+                title="Tiffany Chu curriculum vitae PDF"
+                src="assets/pdfs/CV.pdf">
+            </iframe>
+        </div>
     </section>
 </main>
 
-<footer>
-    © 2025 With love, Tiffany :D
+<footer class="site-footer">
+    <div class="footer-bottom">
+        <p><em>&copy; 2025 Tiffany Chu &middot; Built with &hearts;</em></p>
+    </div>
 </footer>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
