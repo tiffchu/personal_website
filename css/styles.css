@@ -164,6 +164,8 @@ h3 {
 
 .projects-intro h1 {
     margin: 0.45rem 0 0.9rem;
+    font-size: clamp(3rem, 7vw, 6.2rem);
+    line-height: 0.9;
 }
 
 .projects-intro > p:last-child {

@@ -21,7 +21,7 @@
 .hobbies-hero h1 {
     margin: 0.45rem 0 1.25rem;
     color: var(--text-primary);
-    font-size: clamp(4.3rem, 12vw, 8.6rem);
+    font-size: clamp(3.4rem, 9vw, 6.6rem);
     line-height: 0.82;
 }
 
