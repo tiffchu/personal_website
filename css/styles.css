@@ -679,9 +679,13 @@ h3 {
 .hobby-images img ,
 .hobby-images video {
     width: 100%;
-    height: 500px;
+    height: clamp(220px, 32vw, 360px);
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 8px;
+}
+
+.hobby-images video {
+    object-position: center 32%;
 }
 
 /* =====================
@@ -1662,9 +1666,39 @@ section p {
 .hobby-images img ,
 .hobby-images video {
     width: 100%;
-    height: 500px;
+    height: clamp(220px, 32vw, 360px);
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 8px;
+}
+
+.page-intro {
+    max-width: 42rem;
+    margin: -0.8rem 0 2.4rem;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.55;
+}
+
+.hobby-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    list-style: none;
+}
+
+.hobby-list li {
+    padding: 0.8rem 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 14%, var(--border));
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--accent-soft) 52%, var(--bg-elevated));
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+    .hobby-list {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* =====================
