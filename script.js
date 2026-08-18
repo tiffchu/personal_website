@@ -148,14 +148,14 @@ function initDotGrid(wrapper, canvas) {
 
     const settings = {
         dotRadius: 1.55,
-        activeRadius: 3.25,
+        activeRadius: 3.05,
         gap: 24,
-        proximity: 138,
-        speedTrigger: 115,
-        shockRadius: 230,
-        shockStrength: 12,
-        spring: 0.085,
-        friction: 0.82
+        proximity: 120,
+        speedTrigger: 145,
+        shockRadius: 190,
+        shockStrength: 8,
+        spring: 0.065,
+        friction: 0.74
     };
     const pointer = {
         x: -10000,
@@ -257,8 +257,8 @@ function initDotGrid(wrapper, canvas) {
             const falloff = 1 - distance / radius;
             const force = strength * falloff * falloff;
 
-            dot.vx += (dx / distance) * force + velocityX * 0.0048 * falloff;
-            dot.vy += (dy / distance) * force + velocityY * 0.0048 * falloff;
+            dot.vx += (dx / distance) * force + velocityX * 0.0032 * falloff;
+            dot.vy += (dy / distance) * force + velocityY * 0.0032 * falloff;
         });
     }
 
@@ -281,7 +281,7 @@ function initDotGrid(wrapper, canvas) {
         pointer.active = true;
 
         if (speed > settings.speedTrigger) {
-            pushDots(pointer.x, pointer.y, settings.proximity, Math.min(speed / 115, settings.shockStrength), velocityX, velocityY);
+            pushDots(pointer.x, pointer.y, settings.proximity, Math.min(speed / 150, settings.shockStrength), velocityX, velocityY);
         }
     }
 
