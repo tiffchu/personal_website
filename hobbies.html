@@ -6,16 +6,16 @@
     <title>Hobbies</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8C%BF%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/hobbies.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="hobbies-modern-page">
 
 <header>
     <nav>
         <a class="brand" href="index.html" aria-label="Tiffany Chu home">
-            <span class="brand-mark" aria-hidden="true">TC</span>
             <span class="brand-name">Tiffany Chu</span>
         </a>
         <ul class="nav-links">
@@ -32,79 +32,115 @@
     </nav>
 </header>
 
-<main>
-<h1>Hobbies</h1>
-<p class="page-intro">Things I do when I'm not writing queries, training models, or overthinking corn.</p>
-<section class="card">
-    <h2>Gardening</h2>
+<main class="hobbies-modern">
+    <section class="hobbies-hero" aria-labelledby="hobbies-title">
+        <div class="hobbies-hero__copy">
+            <p class="section-label">Lifemaxxing</p>
+            <h1 id="hobbies-title">Hobbies</h1>
+            <p>Things I do when I'm not staring at a screen</p>
+        </div>
+    </section>
 
-    <div class="hobby-images">
-        <img src="assets/images/dahlia.jpg" alt="dahlia">
-        <img src="assets/images/freesia.jpg" alt="freesia">
-        <img src="assets/images/blueberry.jpg" alt="blueberries">
-    </div>
+    <section class="hobby-feature hobby-feature--garden" aria-labelledby="garden-title">
+        <div class="hobby-feature__media hobby-feature__media--wide">
+            <img src="assets/images/dahlia.jpg" alt="dahlia">
+            <img src="assets/images/freesia.jpg" alt="freesia">
+            <img src="assets/images/blueberry.jpg" alt="blueberries">
+        </div>
+        <div class="hobby-feature__content">
+            <p class="hobby-feature__eyebrow">I love old lady activities</p>
+            <h2 id="garden-title">Gardening</h2>
+            <p>
+                This year's plant obsession are dahlias and peony poppies.
+                In addition to flowers, I grow chayote, corn, strawberries,
+                blueberries, and other vegetables. I wouldn't recommend growing corn.
+            </p>
+            <ul class="hobby-tags" aria-label="Gardening icons">
+                <li aria-label="Flowers">&#127800;</li>
+                <li aria-label="Blueberries">&#129744;</li>
+                <li aria-label="Corn">&#127805;</li>
+            </ul>
+        </div>
+    </section>
 
-    <p>
-        This year's plant obsession are dahlias and peony poppies.
-        In addition to flowers, I grow chayote, corn, strawberries, blueberries, and other vegetables. 
-        I wouldn't recommend growing corn. 
-    </p>
-</section>
+    <section class="hobby-feature hobby-feature--reverse" aria-labelledby="water-title">
+        <div class="hobby-feature__media hobby-feature__media--wide">
+            <img src="assets/images/dragonboat.jpg" alt="Nationals in Welland, Ontario. Colorized. Circa 2023">
+            <img src="assets/images/oc.jpg" alt="OC at Dragonzone, False Creek">
+            <img src="assets/images/star.jpg" alt="idk">
+        </div>
+        <div class="hobby-feature__content">
+            <p class="hobby-feature__eyebrow">Actual</p>
+            <h2 id="water-title">Water sports</h2>
+            <p class="hobby-caption">
+                <em>
+                    fig. 1 - Nationals in Welland, Ontario, 2023, silver. Team UBC Current Blue<br>
+                    fig. 2 - Outrigger canoeing at Dragonzone, False Creek
+                </em>
+            </p>
+            <ul class="hobby-tags" aria-label="Water sports icons">
+                <li aria-label="Paddling">&#128675;</li>
+                <li aria-label="Canoeing">&#128758;</li>
+                <li aria-label="Sea star">&#11088;</li>
+            </ul>
+        </div>
+    </section>
 
-<section class="card">
-    <h2>Water sports</h2>
+    <section class="hobby-feature" aria-labelledby="movement-title">
+        <div class="hobby-feature__media hobby-feature__media--wide hobby-feature__media--motion">
+            <img src="assets/images/climb.jpg" alt="not actually climbing, hiking rather">
+            <video autoplay loop muted playsinline aria-label="Pull-up training video">
+                <source src="assets/images/pullup.mp4" type="video/mp4">
+            </video>
+            <img src="assets/images/hike.jpg" alt="backpacking">
+        </div>
+        <div class="hobby-feature__content">
+            <p class="hobby-feature__eyebrow">Why I need a 4x4</p>
+            <h2 id="movement-title">(Any) Physical activity</h2>
+            <p>
+                Sometimes I run, other times I lift things and put them down again.
+                Anything for the endorphins and to not go insane.
+            </p>
+            <ul class="hobby-tags" aria-label="Physical activity icons">
+                <li aria-label="Running">&#127939;</li>
+                <li aria-label="Lifting">&#127947;&#65039;</li>
+                <li aria-label="Hiking">&#129406;</li>
+            </ul>
+        </div>
+    </section>
 
-    <div class="hobby-images">
-        <img src="assets/images/dragonboat.jpg" alt="Nationals in Welland, Ontario. Colorized. Circa 2023">
-        <img src="assets/images/oc.jpg" alt="OC at Dragonzone, False Creek">
-        <img src="assets/images/star.jpg" alt="idk">
-        <!-- <img src="assets/images/medals.jpeg" alt="medals from the past decade"> -->
-    </div>
-
-    <p><em>
-        fig. 1 - Nationals in Welland, Ontario, 2023, silver. Team UBC Current Blue <br>
-        fig. 2 - Outrigger canoeing at Dragonzone, False Creek<br>
-        <!-- fig. 3 - Things I find when I paddle  --></em><br>
-    </p>
-</section>
-
-<section class="card">
-    <h2>Physical activity (any)</h2>
-
-    <div class="hobby-images">
-        <!-- <img src="assets/images/gym.jpg" alt="gym"> -->
-        <img src="assets/images/climb.jpg" alt="not actually climbing, hiking rather">
-        <video autoplay loop muted playsinline><source src="assets/images/pullup.mp4" type="video/mp4"></video>
-        <img src="assets/images/hike.jpg" alt="backpacking">
-
-    </div>
-
-    <p>
-        Sometimes I run, other times I lift things and put them down again. 
-        Anything for the endorphins and to not go insane. 
-        <!-- I hope I can get a 285 deadlift and a sub 45 10k without back pain someday. -->
-    </p>
-</section>
-
-<section class="card">
-    <h2>Other hobbies</h2>
-
-    <ul class="hobby-list">
-        <li>Collecting rocks</li>
-        <li>Tetris - ask me to duel on tetr.io</li>
-        <li>Calligraphy. I own an ungodly number of oblique dip pens + nibs and brush pens</li>
-        <li>Sewing and alterations - hobby started when my grad dress didn't fit</li>
-    </ul>
-</section>
-
-
+    <section class="hobby-collection" aria-labelledby="other-title">
+        <div>
+            <p class="section-label">Side quests</p>
+            <h2 id="other-title">Other hobbies</h2>
+        </div>
+        <ul class="hobby-collection__grid">
+            <li>
+                <span>Collecting rocks</span>
+                <small>I like rocks.</small>
+            </li>
+            <li>
+                <span>Tetris</span>
+                <small>Accepting tetr.io duel challenges.</small>
+            </li>
+            <li>
+                <span>Calligraphy</span>
+                <small>Oblique dip pens, nibs, brush pens, the full spiral.</small>
+            </li>
+            <li>
+                <span>Sewing and alterations</span>
+                <small>Started with a grad dress that didn't fit.</small>
+            </li>
+        </ul>
+    </section>
 </main>
 
-<footer>
-    &copy; 2025 With love, Tiffany :D
+<footer class="site-footer">
+    <div class="footer-bottom">
+        <p><em>&copy; 2025 Tiffany Chu &middot; Built with &hearts;</em></p>
+    </div>
 </footer>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-
